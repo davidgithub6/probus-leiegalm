@@ -1,7 +1,7 @@
 <!--
-  HeroVisual.svelte — Abstract animated interpretation of the Probus logo.
-  Motifs: rotating gear ring, pulsing globe meridians/parallels, golden "P" fade, inner orb.
-  100% canvas — no external assets.
+  HeroVisual.svelte — Option C: "De Globe"
+  Rotating 3D dot-lattice sphere with the exact Probus serif "P" centered.
+  Waits for EB Garamond to load before drawing so the letterform matches the original.
 -->
 <script>
     import { onMount } from "svelte";
@@ -11,192 +11,148 @@
     onMount(() => {
         const ctx = canvas.getContext("2d");
         const S = 440;
-        canvas.width = S;
-        canvas.height = S;
-
-        const navy = { r: 27, g: 58, b: 92 }; // #1b3a5c
-        const gold = { r: 184, g: 146, b: 42 }; // #b8922a
-
-        const nc = (a) => `rgba(${navy.r},${navy.g},${navy.b},${a})`;
-        const gc = (a) => `rgba(${gold.r},${gold.g},${gold.b},${a})`;
+        canvas.width = S * devicePixelRatio;
+        canvas.height = S * devicePixelRatio;
+        canvas.style.width = S + "px";
+        canvas.style.height = S + "px";
+        ctx.scale(devicePixelRatio, devicePixelRatio);
 
         const cx = S / 2,
             cy = S / 2;
-        const OR = 180; // outer radius
-        const IR = 138; // inner navy circle radius
-        const TEETH = 24;
+        const R = 158; // sphere radius
+
+        // ── Lambert lattice points on sphere ──────────────────
+        const points = [];
+        const LATS = 14,
+            LONS = 22; // denser lattice = more globe-like
+        for (let la = 0; la <= LATS; la++) {
+            for (let lo = 0; lo < LONS; lo++) {
+                const phi = (la / LATS) * Math.PI; // 0 → π  (north to south)
+                const theta = (lo / LONS) * Math.PI * 2; // 0 → 2π
+                points.push({ phi, theta });
+            }
+        }
 
         let t = 0;
+        let raf;
 
         const draw = () => {
             ctx.clearRect(0, 0, S, S);
 
-            // ── 1. Outer gold disc background ──────────────────────────
+            // ── 1. Subtle outer reference circle ──────────────────
             ctx.beginPath();
-            ctx.arc(cx, cy, OR, 0, Math.PI * 2);
-            ctx.fillStyle = gc(0.12);
-            ctx.fill();
-
-            // ── 2. Gear teeth (24 teeth, animated rotation) ─────────────
-            const gearAngle = t * 0.18; // slow rotation
-            for (let i = 0; i < TEETH; i++) {
-                const isBanner = i >= 19 && i <= 23;
-                const base =
-                    gearAngle + (i / TEETH) * Math.PI * 2 - Math.PI / 2;
-                const half = (Math.PI / TEETH) * 0.65;
-
-                // Tooth outer arc segment
-                ctx.beginPath();
-                ctx.arc(cx, cy, OR, base - half, base + half);
-                ctx.arc(cx, cy, OR - 18, base + half, base - half, true);
-                ctx.closePath();
-                ctx.fillStyle = isBanner ? nc(0.85) : gc(0.75);
-                ctx.fill();
-
-                // Notch inset (navy on gold teeth only)
-                if (!isBanner) {
-                    ctx.beginPath();
-                    ctx.arc(
-                        cx,
-                        cy,
-                        OR - 4,
-                        base - half * 0.6,
-                        base + half * 0.6,
-                    );
-                    ctx.arc(
-                        cx,
-                        cy,
-                        OR - 14,
-                        base + half * 0.6,
-                        base - half * 0.6,
-                        true,
-                    );
-                    ctx.closePath();
-                    ctx.fillStyle = nc(0.55);
-                    ctx.fill();
-                }
-            }
-
-            // Gear outer ring stroke
-            ctx.beginPath();
-            ctx.arc(cx, cy, OR, 0, Math.PI * 2);
-            ctx.strokeStyle = gc(0.4);
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-
-            // ── 3. Inner navy circle ─────────────────────────────────────
-            ctx.beginPath();
-            ctx.arc(cx, cy, IR, 0, Math.PI * 2);
-            ctx.fillStyle = nc(0.92);
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.arc(cx, cy, IR, 0, Math.PI * 2);
-            ctx.strokeStyle = gc(0.5);
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
-            // ── 4. Globe — meridians (slowly counter-rotate) ────────────
-            const globeAngle = -t * 0.09;
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(cx, cy, IR - 2, 0, Math.PI * 2);
-            ctx.clip();
-
-            const pulse = 1 + Math.sin(t * 0.7) * 0.04;
-
-            // Equator
-            ctx.beginPath();
-            ctx.ellipse(cx, cy, (IR - 4) * pulse, 8, 0, 0, Math.PI * 2);
-            ctx.strokeStyle = gc(0.25);
+            ctx.arc(cx, cy, R + 16, 0, Math.PI * 2);
+            ctx.strokeStyle = "rgba(184,146,42,.10)";
             ctx.lineWidth = 1;
             ctx.stroke();
 
-            // Parallels
-            for (const yOff of [-38, -20, 20, 38]) {
-                const ry = 6 + Math.abs(yOff) * 0.15;
-                ctx.beginPath();
-                ctx.ellipse(
-                    cx,
-                    cy + yOff,
-                    (IR - 4 - Math.abs(yOff) * 0.4) * pulse,
-                    ry,
-                    0,
-                    0,
-                    Math.PI * 2,
-                );
-                ctx.strokeStyle = gc(0.18);
-                ctx.lineWidth = 0.8;
-                ctx.stroke();
-            }
-
-            // Meridians (rotated)
-            ctx.save();
-            ctx.translate(cx, cy);
-            ctx.rotate(globeAngle);
-            for (let m = 0; m < 5; m++) {
-                ctx.save();
-                ctx.rotate((m / 5) * Math.PI);
-                ctx.beginPath();
-                ctx.ellipse(0, 0, 28, IR - 4, 0, 0, Math.PI * 2);
-                ctx.strokeStyle = gc(0.18);
-                ctx.lineWidth = 0.8;
-                ctx.stroke();
-                ctx.restore();
-            }
-            ctx.restore();
-            ctx.restore();
-
-            // ── 5. "PROBUS" banner arc at bottom (navy arc bg) ──────────
-            const bannerStart = Math.PI * 0.75 + gearAngle; // rotates with gear
-            const bannerEnd = Math.PI * 2.25 + gearAngle;
-
             ctx.beginPath();
-            ctx.arc(
-                cx,
-                cy,
-                IR,
-                Math.PI * 0.78 + gearAngle,
-                Math.PI * 2.22 + gearAngle,
-            );
-            ctx.arc(
-                cx,
-                cy,
-                IR - 30,
-                Math.PI * 2.22 + gearAngle,
-                Math.PI * 0.78 + gearAngle,
-                true,
-            );
-            ctx.closePath();
-            ctx.fillStyle = nc(0.95);
-            ctx.fill();
+            ctx.arc(cx, cy, R + 6, 0, Math.PI * 2);
+            ctx.strokeStyle = "rgba(27,58,92,.08)";
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
 
-            // ── 6. Central serif "P" in gold ─────────────────────────────
-            const pAlpha = 0.7 + Math.sin(t * 0.5) * 0.15;
+            // ── 2. Project & sort lattice dots ────────────────────
+            const rotY = t * 0.28; // horizontal spin speed
+
+            const projected = points
+                .map(({ phi, theta }) => {
+                    const rTheta = theta + rotY;
+                    const sinPhi = Math.sin(phi);
+                    // 3-D coords (Y up)
+                    const x3 = sinPhi * Math.cos(rTheta);
+                    const y3 = Math.cos(phi);
+                    const z3 = sinPhi * Math.sin(rTheta);
+                    // Simple orthographic with slight Y compression for depth feel
+                    const sx = cx + x3 * R;
+                    const sy = cy - y3 * R * 0.92;
+                    const depth = (z3 + 1) * 0.5; // 0 = back, 1 = front
+                    return { sx, sy, depth, z3 };
+                })
+                .sort((a, b) => a.depth - b.depth); // paint back-to-front
+
+            for (const { sx, sy, depth } of projected) {
+                const dotR = 1.2 + depth * 2.0;
+
+                // Front dots → gold, back dots → navy, fade at very back
+                const alpha = 0.06 + depth * 0.42;
+                const isFront = depth > 0.55;
+
+                ctx.beginPath();
+                ctx.arc(sx, sy, dotR, 0, Math.PI * 2);
+
+                if (isFront) {
+                    ctx.fillStyle = `rgba(184,146,42,${alpha.toFixed(2)})`; // gold
+                } else {
+                    ctx.fillStyle = `rgba(27,58,92,${(alpha * 0.6).toFixed(2)})`; // navy
+                }
+                ctx.fill();
+            }
+
+            // ── 3. Equatorial accent ring ──────────────────────────
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, R, R * 0.14, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(184,146,42,${0.18 + Math.sin(t * 0.8) * 0.06})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // ── 4. Serif "P" — dominant centrepiece ───────────────
+            // The P is drawn navy (large) with a thin gold shadow for lift.
+            // Font must be loaded before this point — we wait via document.fonts.ready.
+            const pSize = 150;
+            const font = `400 ${pSize}px 'EB Garamond', Georgia, serif`;
+
             ctx.save();
-            ctx.font = `600 ${Math.round(100 + Math.sin(t * 0.4) * 3)}px 'EB Garamond', Georgia, serif`;
-            ctx.fillStyle = gc(pAlpha);
+            ctx.font = font;
             ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText("P", cx, cy - 8);
-            ctx.restore();
+            ctx.textBaseline = "alphabetic";
 
-            // ── 7. Soft inner glow behind the P ──────────────────────────
-            const grd = ctx.createRadialGradient(cx, cy, 20, cx, cy, 80);
-            grd.addColorStop(0, gc(0.08));
-            grd.addColorStop(1, "rgba(0,0,0,0)");
-            ctx.beginPath();
-            ctx.arc(cx, cy, 80, 0, Math.PI * 2);
+            // Gold glow behind the letter
+            const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 90);
+            grd.addColorStop(0, "rgba(248,246,242,0.65)");
+            grd.addColorStop(1, "rgba(248,246,242,0)");
             ctx.fillStyle = grd;
+            ctx.beginPath();
+            ctx.arc(cx, cy, 90, 0, Math.PI * 2);
             ctx.fill();
 
-            t += 0.015;
-            requestAnimationFrame(draw);
+            // Letter — navy, solid
+            ctx.fillStyle = `rgba(27,58,92,0.94)`;
+            ctx.fillText("P", cx, cy + pSize * 0.33);
+
+            ctx.restore();
+
+            // ── 5. Thin gold hairline below the P ─────────────────
+            const lineY = cy + pSize * 0.39;
+            ctx.beginPath();
+            ctx.moveTo(cx - 26, lineY);
+            ctx.lineTo(cx + 26, lineY);
+            ctx.strokeStyle = "rgba(184,146,42,0.65)";
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            t += 0.012;
+            raf = requestAnimationFrame(draw);
         };
 
-        draw();
+        // Wait for webfont before first draw to ensure correct letterform
+        document.fonts.ready.then(() => {
+            // Warm up the font in the canvas context
+            ctx.font = `400 12px 'EB Garamond', Georgia, serif`;
+            ctx.fillText("", 0, 0);
+            draw();
+        });
+
+        return () => cancelAnimationFrame(raf);
     });
 </script>
 
-<canvas bind:this={canvas} style="width:440px;height:440px;max-width:100%"
-></canvas>
+<canvas bind:this={canvas} class="hero-canvas"></canvas>
+
+<style>
+    .hero-canvas {
+        display: block;
+        max-width: 100%;
+        /* Sizes set via JS to handle devicePixelRatio */
+    }
+</style>
