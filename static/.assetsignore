@@ -1,0 +1,3 @@
+# This file is required by @sveltejs/adapter-cloudflare.
+# It tells Wrangler which files in the static directory to exclude from upload.
+# Leave blank to include all static assets.

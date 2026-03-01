@@ -1,6 +1,7 @@
 <script>
     import { page } from "$app/state";
     import { onMount } from "svelte";
+    import ProbusLogo from "$lib/components/ProbusLogo.svelte";
 
     let scrolled = $state(false);
     let menuOpen = $state(false);
@@ -29,22 +30,7 @@
         <!-- Logo -->
         <a href="/" class="logo" aria-label="Probus Leiegalm">
             <div class="logo-mark" aria-hidden="true">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-                    <circle
-                        cx="18"
-                        cy="18"
-                        r="17"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                    />
-                    <path
-                        d="M9 18 L18 9 L27 18 L18 27 Z"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                    />
-                    <circle cx="18" cy="18" r="4" fill="currentColor" />
-                </svg>
+                <ProbusLogo size={42} />
             </div>
             <div class="logo-text">
                 <span class="logo-name">Probus</span>
