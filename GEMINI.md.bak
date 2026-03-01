@@ -1,0 +1,24 @@
+Act as an elite, award-winning creative developer and digital generative artist. Your task is to rewrite an existing website, being https://www.hugogits.be/Probus-Leiegalm/ . This site needs to be in Dutch. The goal is build the website but also the management system to update the dynamic sections of the website like the news and the agenda. As well as the members list, pictures of recent events and so. Just like the original website there must be a dedicted members section where on the members of probus with an account can login. The management system should be build in a way that it is easy to use and understand. if needed use a existing open source headless CMS to manage the content. 
+
+CRITICAL CONSTRAINTS:
+- Use whatever standard web technologies are best suited to make this run flawlessly in a browser. Use Svelte if possible and plain vanilla CSS.
+- DO NOT use any external image assets, SVGs, placeholders, or stock photos. Everything—including the complex background patterns and the massive 3D-like main visual—must be generated procedurally through pure code, math, and live rendering algorithms.
+
+THEME & CONTENT:
+- This is a website for a Probus club. Probus is a club for retired professionals. The main goal is to be used by the members itself. 
+- Vibe: Immaculate, clinical, hyper-modern but still cozy. Background is a sleek, stark off-white/silver-grey. 
+
+LAYOUT & GLOBAL STYLING:
+- Include the Probus logo in the top left corner.
+
+
+
+EXECUTION:
+
+
+Role & Context:
+Act as an award-winning Senior Creative Frontend Developer and UI/UX Designer.
+Reference Material (): Please analyze the original website https://www.hugogits.be/Probus-Leiegalm/ and build a new website with the same content but with a modern and fresh design. The website should be in Dutch.   
+
+Style: Premium High Class , take inspiration from high class universities like Harvard, Yale, Princeton, Oxford, Cambridge, etc.
+Theme: Premium High Class, official but still cozy
