@@ -65,7 +65,11 @@ export default buildConfig({
     },
     db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
     logger: isProduction ? cloudflareLogger : undefined,
-    cors: ['http://localhost:5173', 'http://localhost:4173'],
+    cors: [
+        'http://localhost:5173',
+        'http://localhost:4173',
+        'https://probus-leiegalm.david-develops.workers.dev',    // replace with your real Pages URL
+    ],
     plugins: [
         r2Storage({
             bucket: cloudflare.env.R2,

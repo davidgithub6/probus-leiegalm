@@ -76,7 +76,7 @@
                 clubs verspreid over heel België.
             </p>
             <a
-                href="https://www.probusbelgium.be"
+                href="https://www.probus-belgium.be"
                 target="_blank"
                 rel="noopener"
                 class="btn-outline"

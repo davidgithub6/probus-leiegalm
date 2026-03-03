@@ -45,7 +45,7 @@
             <ul>
                 <li>
                     <a
-                        href="https://www.probusbelgium.be"
+                        href="https://www.probus-belgium.be"
                         target="_blank"
                         rel="noopener">Probus Belgium</a
                     >
