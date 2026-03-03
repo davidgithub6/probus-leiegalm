@@ -1,0 +1,46 @@
+name: Deploy CMS to Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cms/**'
+      - '.github/workflows/deploy-cms.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cms
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: cms/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate wrangler types
+        run: npx wrangler types
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Generate importmap
+        run: npm run generate:importmap
+
+      - name: Deploy database migrations
+        run: npm run deploy:database
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Build and deploy app
+        run: npm run deploy:app
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

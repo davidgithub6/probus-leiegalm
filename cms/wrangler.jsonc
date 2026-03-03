@@ -13,25 +13,14 @@
 	"d1_databases": [
 		{
 			"binding": "D1",
-			"database_id": "DATABASE_ID",
-			"database_name": "probus-cms"
-		},
-		{
-			"binding": "probus_cms",
-			"database_name": "probus-cms",
 			"database_id": "950b9dc5-b8a9-43ad-be3d-278c3ab95401",
-			"remote": true
+			"database_name": "probus-cms"
 		}
 	],
 	"r2_buckets": [
 		{
 			"binding": "R2",
 			"bucket_name": "probus-media"
-		},
-		{
-			"bucket_name": "probus-media",
-			"binding": "probus_media",
-			"remote": true
 		}
 	]
 }
