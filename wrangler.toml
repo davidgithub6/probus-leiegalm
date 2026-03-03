@@ -1,0 +1,7 @@
+name = "probus-website"
+compatibility_date = "2025-08-15"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".svelte-kit/cloudflare"
+
+[vars]
+VITE_CMS_URL = "https://probus-cms.YOUR_SUBDOMAIN.workers.dev"

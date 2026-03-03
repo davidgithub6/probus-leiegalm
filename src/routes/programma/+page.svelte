@@ -1,98 +1,21 @@
 <script>
-    const events = [
-        {
-            day: "15",
-            month: "JAN",
-            year: "2026",
-            cat: "Vergadering",
-            title: "Nieuwjaarsreceptie & installatie",
-            loc: "Restaurant Vijverhof, Wevelgem",
-            time: "12:00",
-            highlight: true,
-        },
-        {
-            day: "19",
-            month: "FEB",
-            year: "2026",
-            cat: "Lezing",
-            title: "De toekomst van artificiële intelligentie",
-            loc: "Restaurant Vijverhof, Wevelgem",
-            time: "14:00",
-        },
-        {
-            day: "19",
-            month: "MRT",
-            year: "2026",
-            cat: "Vergadering",
-            title: "Maandelijkse samenkomst",
-            loc: "Restaurant Vijverhof, Wevelgem",
-            time: "12:00",
-        },
-        {
-            day: "09",
-            month: "APR",
-            year: "2026",
-            cat: "Uitstap",
-            title: "Cultuurbezoek Brugge",
-            loc: "Markt, Brugge",
-            time: "09:00",
-        },
-        {
-            day: "21",
-            month: "MEI",
-            year: "2026",
-            cat: "Bedrijf",
-            title: "Bedrijfsbezoek – nader te bepalen",
-            loc: "Nader te bepalen",
-            time: "09:30",
-        },
-        {
-            day: "18",
-            month: "JUN",
-            year: "2026",
-            cat: "Vergadering",
-            title: "Zomersamenkomst & aperitief",
-            loc: "Restaurant Vijverhof, Wevelgem",
-            time: "12:00",
-        },
-        {
-            day: "17",
-            month: "SEP",
-            year: "2026",
-            cat: "Vergadering",
-            title: "Hervatting na zomerpauze",
-            loc: "Restaurant Vijverhof, Wevelgem",
-            time: "12:00",
-        },
-        {
-            day: "15",
-            month: "OKT",
-            year: "2026",
-            cat: "Lezing",
-            title: "Gastspreker – thema 2026",
-            loc: "Restaurant Vijverhof, Wevelgem",
-            time: "14:00",
-        },
-        {
-            day: "19",
-            month: "NOV",
-            year: "2026",
-            cat: "Vergadering",
-            title: "Maandelijkse samenkomst",
-            loc: "Restaurant Vijverhof, Wevelgem",
-            time: "12:00",
-        },
-        {
-            day: "17",
-            month: "DEC",
-            year: "2026",
-            cat: "Diner",
-            title: "Eindejaarsfeest & diner",
-            loc: "Restaurant Vijverhof, Wevelgem",
-            time: "18:00",
-            highlight: true,
-        },
-    ];
+    export let data;
+
+    const MONTHS = ['JAN','FEB','MRT','APR','MEI','JUN','JUL','AUG','SEP','OKT','NOV','DEC'];
+
+    const events = data.events.map(ev => {
+        const d = new Date(ev.datum);
+        return {
+            day: String(d.getUTCDate()).padStart(2, '0'),
+            month: MONTHS[d.getUTCMonth()],
+            year: String(d.getUTCFullYear()),
+            cat: ev.categorie,
+            title: ev.titel,
+            loc: ev.locatie,
+            time: ev.tijd ?? '',
+            highlight: ev.uitgelicht,
+        };
+    });
 
     const catColors = {
         Vergadering: "navy",

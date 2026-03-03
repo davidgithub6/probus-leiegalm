@@ -18,145 +18,66 @@
     </div>
 </article>
 
+<div class="photo-banner container">
+    <figure class="koor-figure">
+        <img
+            src="/koor.jpg"
+            alt="Probus Leiegalm zingt de hymne"
+            class="koor-photo"
+        />
+        <figcaption>Probus Leiegalm zingt de hymne</figcaption>
+    </figure>
+</div>
+
 <section class="hymne-section container">
-    <div class="two-col">
-        <div class="lyrics-block">
-            <div class="verse">
-                <span class="verse-label">1</span>
-                <p>
-                    Waar de Leie zachtjes stroomt,<br />
-                    En het hart van vriendschap droomt,<br />
-                    Daar weerklinkt ons hoogste lied,<br />
-                    Dat ons hart en ziel gebiedt.
-                </p>
-            </div>
-
-            <div class="refrain">
-                <span class="verse-label refrain-label">Refrein</span>
-                <p>
-                    Leiegalm, o Leiegalm,<br />
-                    In de wind een zachte psalm.<br />
-                    Probus bindt ons hand in hand,<br />
-                    In dit schone Vlaanderland.
-                </p>
-            </div>
-
-            <div class="verse">
-                <span class="verse-label">2</span>
-                <p>
-                    Kennis, wijsheid, diep respect,<br />
-                    In ons midden opgewekt.<br />
-                    Gisteren is voorbijgegaan,<br />
-                    Morgen komt met nieuwe glans.
-                </p>
-            </div>
-
-            <div class="refrain">
-                <span class="verse-label refrain-label">Refrein</span>
-                <p>
-                    Leiegalm, o Leiegalm,<br />
-                    In de wind een zachte psalm.<br />
-                    Probus bindt ons hand in hand,<br />
-                    In dit schone Vlaanderland.
-                </p>
-            </div>
-
-            <div class="verse">
-                <span class="verse-label">3</span>
-                <p>
-                    Als de avond daalt en rust,<br />
-                    Probus-geest ons hart bewust,<br />
-                    Samen oud maar immer jong,<br />
-                    Klinkt opnieuw ons trouwe zong.
-                </p>
-            </div>
+    <div class="verses-grid">
+        <div class="verse">
+            <span class="verse-label">1</span>
+            <p>
+                Langsheen de Leieboorden,<br />
+                daar is het leven tof.<br />
+                Daar komen Probus-leden<br />
+                te saam in 't Vijverhof.<br />
+                Hier aan de dis gezeten,<br />
+                met open hart en geest,<br />
+                bekijken zij het leven:<br />
+                Hoe schoon het is geweest.
+            </p>
         </div>
 
-        <div class="note-visual" aria-hidden="true">
-            <svg
-                viewBox="0 0 200 300"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <!-- Staff lines -->
-                {#each [60, 90, 120, 150, 180] as y}
-                    <line
-                        x1="20"
-                        y1={y}
-                        x2="180"
-                        y2={y}
-                        stroke="#1b3a5c"
-                        stroke-width="1.5"
-                        opacity=".25"
-                    />
-                {/each}
-                <!-- Treble clef approximation -->
-                <path
-                    d="M80 30 C100 10 120 40 100 80 C120 100 90 140 80 160 C70 180 78 200 90 200 C110 200 118 180 100 170"
-                    stroke="#b8922a"
-                    stroke-width="2.5"
-                    fill="none"
-                    opacity=".7"
-                />
-                <!-- Note heads -->
-                <ellipse
-                    cx="130"
-                    cy="90"
-                    rx="10"
-                    ry="7"
-                    fill="#1b3a5c"
-                    opacity=".3"
-                    transform="rotate(-18 130 90)"
-                />
-                <ellipse
-                    cx="155"
-                    cy="75"
-                    rx="10"
-                    ry="7"
-                    fill="#1b3a5c"
-                    opacity=".3"
-                    transform="rotate(-18 155 75)"
-                />
-                <ellipse
-                    cx="110"
-                    cy="120"
-                    rx="10"
-                    ry="7"
-                    fill="#b8922a"
-                    opacity=".5"
-                    transform="rotate(-18 110 120)"
-                />
-                <!-- Stems -->
-                <line
-                    x1="140"
-                    y1="90"
-                    x2="140"
-                    y2="50"
-                    stroke="#1b3a5c"
-                    stroke-width="1.5"
-                    opacity=".3"
-                />
-                <line
-                    x1="165"
-                    y1="75"
-                    x2="165"
-                    y2="35"
-                    stroke="#1b3a5c"
-                    stroke-width="1.5"
-                    opacity=".3"
-                />
-                <line
-                    x1="120"
-                    y1="120"
-                    x2="120"
-                    y2="80"
-                    stroke="#b8922a"
-                    stroke-width="1.5"
-                    opacity=".5"
-                />
-            </svg>
+        <div class="verse">
+            <span class="verse-label">2</span>
+            <p>
+                Hier wordt getoast op 't heden,<br />
+                op vriendschap en begrip,<br />
+                problemen aangesneden:<br />
+                Europa op ons lip.<br />
+                Wij zijn de post-actieven,<br />
+                wij maken 't land niet rijk.<br />
+                Wij werken naar believen,<br />
+                doch met gebrek aan tijd!
+            </p>
+        </div>
+
+        <div class="verse">
+            <span class="verse-label">3</span>
+            <p>
+                De toekomst baart ons zorgen:<br />
+                de aard' is in gevaar.<br />
+                De kinderen van morgen,<br />
+                wie heeft nog werk en waar?<br />
+                Maar ons geloof in het leven<br />
+                vieren wij hier te gaar.<br />
+                Kom, laten wij dan geven<br />
+                een heildronk op elkaar!
+            </p>
         </div>
     </div>
+
+    <p class="credit">
+        Oorspronkelijke tekst: <em>De winter is vergangen</em> (XV eeuw)<br />
+        Tekstbewerking voor Probus-senioren: Fr. Top-Torck (2005)
+    </p>
 </section>
 
 <style>
@@ -164,7 +85,6 @@
         padding: var(--sp-xl) 0 var(--sp-lg);
         border-bottom: 1px solid var(--border);
     }
-
     .page-hero h1 {
         font-size: clamp(2.2rem, 4vw, 3.5rem);
         margin: 0.5rem 0 var(--sp-sm);
@@ -175,80 +95,68 @@
         max-width: 600px;
     }
 
+    /* Full-width photo */
+    .photo-banner {
+        padding-top: var(--sp-xl);
+    }
+    .koor-figure {
+        margin: 0;
+    }
+    .koor-photo {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 1px solid var(--border);
+    }
+    figcaption {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        margin-top: 0.5rem;
+        letter-spacing: 0.04em;
+    }
+
+    /* Lyrics */
     .hymne-section {
         padding: var(--sp-xl) 0;
     }
-
-    .two-col {
+    .verses-grid {
         display: grid;
-        grid-template-columns: 1fr 220px;
+        grid-template-columns: repeat(3, 1fr);
         gap: var(--sp-xl);
         align-items: start;
     }
-
-    .lyrics-block {
-        display: flex;
-        flex-direction: column;
-        gap: var(--sp-md);
-    }
-
-    .verse,
-    .refrain {
+    .verse {
         display: grid;
         grid-template-columns: 24px 1fr;
-        gap: var(--sp-md);
+        gap: var(--sp-sm);
         align-items: start;
     }
-
     .verse-label {
         font-family: var(--font-serif);
         font-size: 1rem;
         color: var(--accent-gold);
         font-weight: 600;
-        padding-top: 0.2rem;
+        padding-top: 0.25rem;
     }
-
-    .refrain {
-        background: var(--surface);
-        border-left: 3px solid var(--accent-gold);
-        padding: var(--sp-sm) var(--sp-sm) var(--sp-sm) var(--sp-md);
-    }
-
-    .refrain-label {
-        font-size: 0.7rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-    }
-
-    .verse p,
-    .refrain p {
+    .verse p {
         font-family: var(--font-serif);
-        font-size: 1.2rem;
-        line-height: 1.9;
+        font-size: 1.1rem;
+        line-height: 2;
         color: var(--text);
     }
-
-    .refrain p {
-        color: var(--accent);
-        font-style: italic;
+    .credit {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        border-top: 1px solid var(--border);
+        padding-top: var(--sp-md);
+        margin-top: var(--sp-md);
+        line-height: 1.7;
     }
 
-    .note-visual {
-        position: sticky;
-        top: 90px;
-        opacity: 0.6;
-    }
-
-    .note-visual svg {
-        width: 100%;
-    }
-
-    @media (max-width: 640px) {
-        .two-col {
+    @media (max-width: 760px) {
+        .verses-grid {
             grid-template-columns: 1fr;
-        }
-        .note-visual {
-            display: none;
+            gap: var(--sp-lg);
         }
     }
 </style>

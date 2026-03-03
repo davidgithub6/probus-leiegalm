@@ -1,39 +1,21 @@
 <script>
-    import { onMount } from "svelte";
+    export let data;
 
-    // Procedural placeholder galleries
-    const albums = [
-        {
-            id: 1,
-            title: "Nieuwjaarsreceptie 2026",
-            date: "Januari 2026",
-            count: 18,
-        },
-        {
-            id: 2,
-            title: "Bedrijfsbezoek 2025",
-            date: "Oktober 2025",
-            count: 24,
-        },
-        {
-            id: 3,
-            title: "Eindejaarsfeest 2025",
-            date: "December 2025",
-            count: 32,
-        },
-        {
-            id: 4,
-            title: "Cultuuruitstap Gent 2025",
-            date: "September 2025",
-            count: 15,
-        },
-        { id: 5, title: "Zomersamenkomst 2025", date: "Juni 2025", count: 21 },
-        { id: 6, title: "Inauguratie 2025", date: "Januari 2025", count: 40 },
-    ];
+    const MAANDEN = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+    const HUES = [210, 190, 220, 175, 200, 215];
 
-    // Procedural hue per album
+    const albums = data.albums.map((a, i) => {
+        const d = new Date(a.datum);
+        return {
+            id: i + 1,
+            title: a.titel,
+            date: `${MAANDEN[d.getUTCMonth()].charAt(0).toUpperCase() + MAANDEN[d.getUTCMonth()].slice(1)} ${d.getUTCFullYear()}`,
+            count: a.fotos?.length ?? 0,
+        };
+    });
+
     function hue(id) {
-        return [210, 190, 220, 175, 200, 215][id - 1] ?? 210;
+        return HUES[(id - 1) % HUES.length];
     }
 </script>
 

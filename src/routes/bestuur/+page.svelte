@@ -1,3 +1,7 @@
+<script>
+    export let data;
+</script>
+
 <svelte:head>
     <title>Bestuur — Probus LEIEGALM</title>
     <meta
@@ -17,49 +21,24 @@
 
 <section class="container board-section">
     <div class="board-grid">
-        {#each [{ role: "Voorzitter", initial: "V", desc: "Leidt de algemene vergaderingen en vertegenwoordigt de club naar buiten." }, { role: "Ondervoorzitter", initial: "O", desc: "Ondersteunt de voorzitter en neemt het roer over bij diens afwezigheid." }, { role: "Secretaris", initial: "S", desc: "Beheert de correspondentie, notulen en ledenadministratie." }, { role: "Penningmeester", initial: "P", desc: "Bewaakt de financiën en rapporteert jaarlijks aan de leden." }, { role: "Activiteitencoördinator", initial: "A", desc: "Organiseert lezingen, uitstappen en bedrijfsbezoeken." }, { role: "Archivaris", initial: "A", desc: "Bewaart en ontsluidt de historische documenten en foto's van de club." }] as m}
+        {#each data.bestuursleden as m}
             <div class="board-card">
-                <div class="avatar" aria-hidden="true">
-                    <svg viewBox="0 0 80 80" fill="none">
-                        <circle
-                            cx="40"
-                            cy="40"
-                            r="39"
-                            stroke="var(--accent)"
-                            stroke-width="1"
-                            opacity=".3"
-                        />
-                        <circle
-                            cx="40"
-                            cy="30"
-                            r="14"
-                            stroke="var(--accent)"
-                            stroke-width="1.2"
-                            opacity=".5"
-                        />
-                        <path
-                            d="M10 75 Q40 55 70 75"
-                            stroke="var(--accent)"
-                            stroke-width="1.2"
-                            opacity=".4"
-                            fill="none"
-                        />
-                        <text
-                            x="40"
-                            y="36"
-                            text-anchor="middle"
-                            dominant-baseline="middle"
-                            fill="var(--accent-gold)"
-                            font-family="Georgia,serif"
-                            font-size="18"
-                            opacity=".8">{m.initial}</text
-                        >
-                    </svg>
+                <div class="avatar">
+                    {#if m.fotoUrl}
+                        <img src={m.fotoUrl} alt={m.naam} class="avatar-img" />
+                    {:else}
+                        <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                            <circle cx="40" cy="40" r="39" stroke="var(--accent)" stroke-width="1" opacity=".3" />
+                            <circle cx="40" cy="30" r="14" stroke="var(--accent)" stroke-width="1.2" opacity=".5" />
+                            <path d="M10 75 Q40 55 70 75" stroke="var(--accent)" stroke-width="1.2" opacity=".4" fill="none" />
+                            <text x="40" y="36" text-anchor="middle" dominant-baseline="middle" fill="var(--accent-gold)" font-family="Georgia,serif" font-size="18" opacity=".8">{m.naam[0]}</text>
+                        </svg>
+                    {/if}
                 </div>
                 <div class="member-info">
-                    <span class="role-label label">{m.role}</span>
-                    <p class="name">[Naam]</p>
-                    <p class="desc">{m.desc}</p>
+                    <span class="role-label label">{m.functie}</span>
+                    <p class="name">{m.naam}</p>
+                    <p class="desc">{m.beschrijving ?? ''}</p>
                 </div>
             </div>
         {/each}
@@ -125,6 +104,12 @@
     .avatar svg {
         width: 64px;
         height: 64px;
+    }
+    .avatar-img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+        border-radius: 50%;
     }
 
     .role-label {

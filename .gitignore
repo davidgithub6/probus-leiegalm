@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Wrangler / build artifacts
+.wrangler
+.open-next
+.svelte-kit
+cms/.next
+cms/node_modules
+cms/.wrangler
+cms/.open-next

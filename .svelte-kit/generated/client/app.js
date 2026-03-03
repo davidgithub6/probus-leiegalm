@@ -16,14 +16,14 @@ export const nodes = [
 export const server_loads = [];
 
 export const dictionary = {
-		"/": [2],
-		"/bestuur": [3],
+		"/": [~2],
+		"/bestuur": [~3],
 		"/betekenis": [4],
-		"/fotos": [5],
+		"/fotos": [~5],
 		"/historiek": [6],
 		"/hymne": [7],
 		"/leden": [8],
-		"/programma": [9]
+		"/programma": [~9]
 	};
 
 export const hooks = {

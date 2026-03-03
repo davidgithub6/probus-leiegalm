@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Probus Hero Visual Alternatives</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f8f6f2;
+            font-family: 'EB Garamond', Georgia, serif;
+            color: #1a1814;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #1b3a5c;
+        }
+
+        .subtitle {
+            color: #6b6560;
+            margin-bottom: 48px;
+            font-size: 1rem;
+            font-family: sans-serif;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .option {
+            background: #fff;
+            border: 1px solid #ddd9d2;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .option h2 {
+            font-size: 1.25rem;
+            color: #1b3a5c;
+            margin: 16px 0 6px;
+        }
+
+        .option p {
+            font-size: .8rem;
+            color: #6b6560;
+            font-family: sans-serif;
+            line-height: 1.5;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #1b3a5c;
+            color: gold;
+            font-size: .65rem;
+            padding: 2px 8px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            margin-top: 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <h1>Probus Hero Visual — 3 alternatieven</h1>
+        <p class="subtitle">Elke optie behoudt de originele serifletter "P" als centraal element. Kies het visuele
+            concept dat u het meest aanspreekt.</p>
+
+        <div class="grid">
+
+            <!-- OPTION A: Faithful Crest — gear ring ticking + proper globe + big P -->
+            <div class="option">
+                <canvas id="a" width="360" height="360"></canvas>
+                <h2>A — Het Wapen</h2>
+                <p>Trouwe abstractie van het origineel: tandwielring, gloeiende bol-lijnen, en een grote serif-P. De
+                    ring draait langzaam als een uurwerk.</p>
+            </div>
+
+            <!-- OPTION B: Orbit Rings — concentric latitude rings radiating outward, serif P centre -->
+            <div class="option">
+                <canvas id="b" width="360" height="360"></canvas>
+                <h2>B — De Sfeer</h2>
+                <p>Minimalistisch: breedte-cirkels die pulseren rondom een imposante serif-P. Clean, elegant, modern.
+                </p>
+            </div>
+
+            <!-- OPTION C: Particle Globe — dots forming a rotating globe, serif P overlaid -->
+            <div class="option">
+                <canvas id="c" width="360" height="360"></canvas>
+                <h2>C — De Globe</h2>
+                <p>Draaiende puntenwolk die een bol vormt, met de serif-P er prominent in. Wetenschappelijk en verfijnd.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ── Shared ─────────────────────────────────────────
+        const NAVY = [27, 58, 92];
+        const GOLD = [184, 146, 42];
+        const nc = (a) => `rgba(${NAVY[0]},${NAVY[1]},${NAVY[2]},${a})`;
+        const gc = (a) => `rgba(${GOLD[0]},${GOLD[1]},${GOLD[2]},${a})`;
+
+        // ═══════════════════════════════════════════════════
+        // OPTION A — "Het Wapen" (The Crest)
+        // Faithful gear ring that ticks every 15°, globe arcs, large serif P
+        // ═══════════════════════════════════════════════════
+        ; (function () {
+            const canvas = document.getElementById('a');
+            const ctx = canvas.getContext('2d');
+            const S = 360, cx = S / 2, cy = S / 2;
+            const OR = 164, IR = 128, TEETH = 24;
+            let t = 0;
+
+            function draw() {
+                ctx.clearRect(0, 0, S, S);
+
+                // Subtle BG disc
+                ctx.beginPath(); ctx.arc(cx, cy, OR, 0, Math.PI * 2);
+                ctx.fillStyle = gc(.06); ctx.fill();
+
+                // ── Gear ring: proper trapezoidal teeth ──
+                // Snap-tick rotation: advances in steps of 15°
+                const snapTick = Math.floor(t * 4) * (Math.PI / 48); // smooth but has slight snap
+
+                for (let i = 0; i < TEETH; i++) {
+                    const base = snapTick + (i / TEETH) * Math.PI * 2 - Math.PI / 2;
+                    const hw = Math.PI / TEETH * 0.7;
+                    const isBanner = i >= 19 && i <= 23;
+                    const fillColor = isBanner ? nc(0.9) : gc(0.85);
+
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, OR, base - hw, base + hw);
+                    ctx.arc(cx, cy, OR - 20, base + hw * 0.8, base - hw * 0.8, true);
+                    ctx.closePath();
+                    ctx.fillStyle = fillColor;
+                    ctx.fill();
+
+                    // notch (navy square inset on gold teeth)
+                    if (!isBanner) {
+                        ctx.beginPath();
+                        ctx.arc(cx, cy, OR - 4, base - hw * 0.45, base + hw * 0.45);
+                        ctx.arc(cx, cy, OR - 16, base + hw * 0.45, base - hw * 0.45, true);
+                        ctx.closePath();
+                        ctx.fillStyle = nc(0.6);
+                        ctx.fill();
+                    }
+                }
+
+                // Outer ring stroke
+                ctx.beginPath(); ctx.arc(cx, cy, OR, 0, Math.PI * 2);
+                ctx.strokeStyle = gc(.35); ctx.lineWidth = 1.5; ctx.stroke();
+
+                // ── Inner navy circle ──
+                ctx.beginPath(); ctx.arc(cx, cy, IR, 0, Math.PI * 2);
+                ctx.fillStyle = nc(.92); ctx.fill();
+                ctx.strokeStyle = gc(.6); ctx.lineWidth = 2; ctx.stroke();
+
+                // ── Globe arcs (clipped) ──
+                ctx.save();
+                ctx.beginPath(); ctx.arc(cx, cy, IR - 2, 0, Math.PI * 2); ctx.clip();
+                const gAngle = -t * 0.08;
+
+                // parallels
+                for (const yo of [-36, -18, 0, 18, 36]) {
+                    ctx.beginPath();
+                    ctx.ellipse(cx, cy + yo, Math.sqrt(Math.max(0, (IR - 4) ** 2 - yo * yo)) * 0.98, 6 + Math.abs(yo) * .12, 0, 0, Math.PI * 2);
+                    ctx.strokeStyle = gc(.22); ctx.lineWidth = .8; ctx.stroke();
+                }
+                // meridians
+                ctx.save(); ctx.translate(cx, cy); ctx.rotate(gAngle);
+                for (let m = 0; m < 4; m++) {
+                    ctx.save(); ctx.rotate(m / 4 * Math.PI);
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, 26, IR - 5, 0, 0, Math.PI * 2);
+                    ctx.strokeStyle = gc(.2); ctx.lineWidth = .8; ctx.stroke();
+                    ctx.restore();
+                }
+                ctx.restore();
+                ctx.restore();
+
+                // ── Serif "P" — large, clean, prominent ──
+                const pSize = 108;
+                ctx.save();
+                ctx.font = `400 ${pSize}px 'EB Garamond', Georgia, serif`;
+                ctx.fillStyle = gc(.96);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'alphabetic';
+                ctx.fillText('P', cx, cy + pSize * 0.32);
+                ctx.restore();
+
+                t += 0.008;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+
+        // ═══════════════════════════════════════════════════
+        // OPTION B — "De Sfeer" (The Sphere)
+        // Clean concentric latitude rings that pulse + grow outward. Serif P centred.
+        // ═══════════════════════════════════════════════════
+        ; (function () {
+            const canvas = document.getElementById('b');
+            const ctx = canvas.getContext('2d');
+            const S = 360, cx = S / 2, cy = S / 2;
+            let t = 0;
+
+            function draw() {
+                ctx.clearRect(0, 0, S, S);
+
+                // ── Radiating latitude rings ──
+                const RINGS = 7;
+                for (let i = 0; i < RINGS; i++) {
+                    const phase = (i / RINGS) * Math.PI * 2;
+                    const base = 28 + i * 20;
+                    const pulse = base + Math.sin(t * 1.2 + phase) * 5;
+                    const tilt = 0.38; // perspective tilt
+                    const ry = pulse * tilt;
+                    const alpha = 0.08 + (0.25 - i * 0.025) * Math.max(0, Math.cos(t * 0.6 + i * 0.3));
+
+                    ctx.beginPath();
+                    ctx.ellipse(cx, cy, pulse, ry, 0, 0, Math.PI * 2);
+                    ctx.strokeStyle = nc(Math.max(0.04, alpha));
+                    ctx.lineWidth = 1 + (i === 0 ? 1 : 0);
+                    ctx.stroke();
+                }
+
+                // ── Gold outer reference circle ──
+                const outerR = 158 + Math.sin(t * 0.5) * 3;
+                ctx.beginPath(); ctx.arc(cx, cy, outerR, 0, Math.PI * 2);
+                ctx.strokeStyle = gc(.18); ctx.lineWidth = .8; ctx.stroke();
+
+                // ── Meridian arcs faint ──
+                for (let m = 0; m < 6; m++) {
+                    const ang = m / 6 * Math.PI;
+                    ctx.save(); ctx.translate(cx, cy); ctx.rotate(ang + t * 0.04);
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, 24, outerR - 2, 0, 0, Math.PI * 2);
+                    ctx.strokeStyle = nc(.04); ctx.lineWidth = .7; ctx.stroke();
+                    ctx.restore();
+                }
+
+                // ── Gold inner disc glow ──
+                const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 70);
+                grd.addColorStop(0, gc(.10));
+                grd.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.beginPath(); ctx.arc(cx, cy, 70, 0, Math.PI * 2);
+                ctx.fillStyle = grd; ctx.fill();
+
+                // ── Serif "P" — dominant ──
+                const pSize = 148;
+                ctx.font = `400 ${pSize}px 'EB Garamond', Georgia, serif`;
+                ctx.fillStyle = nc(.88 + Math.sin(t) * 0.04);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'alphabetic';
+                ctx.fillText('P', cx, cy + pSize * 0.32);
+
+                // thin gold underline accent
+                ctx.beginPath();
+                ctx.moveTo(cx - 22, cy + pSize * 0.36);
+                ctx.lineTo(cx + 22, cy + pSize * 0.36);
+                ctx.strokeStyle = gc(.7); ctx.lineWidth = 1.5; ctx.stroke();
+
+                t += 0.01;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+
+        // ═══════════════════════════════════════════════════
+        // OPTION C — "De Globe" (Rotating Dot Sphere)
+        // 3D dot-lattice globe that slowly spins. Serif P as prominent ghost overlay.
+        // ═══════════════════════════════════════════════════
+        ; (function () {
+            const canvas = document.getElementById('c');
+            const ctx = canvas.getContext('2d');
+            const S = 360, cx = S / 2, cy = S / 2;
+            const R = 140;
+            let t = 0;
+
+            // Generate lattice points on sphere
+            const points = [];
+            const LATS = 12, LONS = 20;
+            for (let la = 0; la <= LATS; la++) {
+                for (let lo = 0; lo < LONS; lo++) {
+                    const phi = (la / LATS) * Math.PI;       // 0..π
+                    const theta = (lo / LONS) * Math.PI * 2;   // 0..2π
+                    points.push({ phi, theta });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, S, S);
+
+                // Sort and draw points
+                const projected = points.map(({ phi, theta }) => {
+                    const rTheta = theta + t * 0.3;
+                    const x3 = Math.sin(phi) * Math.cos(rTheta);
+                    const y3 = Math.cos(phi);
+                    const z3 = Math.sin(phi) * Math.sin(rTheta);
+                    const sx = cx + x3 * R;
+                    const sy = cy - y3 * R * 0.9; // slight perspective
+                    const depth = (z3 + 1) / 2;  // 0=back, 1=front
+                    return { sx, sy, depth };
+                }).sort((a, b) => a.depth - b.depth);
+
+                for (const { sx, sy, depth } of projected) {
+                    const r = 1.5 + depth * 2;
+                    const alpha = 0.08 + depth * 0.35;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, r, 0, Math.PI * 2);
+                    ctx.fillStyle = depth > 0.5 ? gc(alpha) : nc(alpha * 0.7);
+                    ctx.fill();
+                }
+
+                // ── Equatorial ring as accent ──
+                ctx.beginPath();
+                ctx.ellipse(cx, cy, R, R * 0.18, 0, 0, Math.PI * 2);
+                ctx.strokeStyle = gc(.3); ctx.lineWidth = .8; ctx.stroke();
+
+                // ── Outer circle ──
+                ctx.beginPath(); ctx.arc(cx, cy, R + 14, 0, Math.PI * 2);
+                ctx.strokeStyle = gc(.15); ctx.lineWidth = .8; ctx.stroke();
+
+                // ── Serif "P" — centre overlay (ghost + solid layered) ──
+                const pSize = 120;
+                // shadow/glow layer
+                ctx.font = `600 ${pSize}px 'EB Garamond', Georgia, serif`;
+                ctx.fillStyle = 'rgba(248,246,242, 0.55)';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'alphabetic';
+                ctx.fillText('P', cx, cy + pSize * 0.32);
+                // solid gold layer
+                ctx.fillStyle = gc(.92);
+                ctx.fillText('P', cx, cy + pSize * 0.32);
+
+                t += 0.008;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+    </script>
+</body>
+
+</html>

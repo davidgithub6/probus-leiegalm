@@ -1,6 +1,8 @@
 <script>
     import HeroVisual from "$lib/components/HeroVisual.svelte";
 
+    export let data;
+
     const highlights = [
         {
             label: "Opgericht",
@@ -19,26 +21,17 @@
         },
     ];
 
-    const agenda = [
-        {
-            day: "19",
-            month: "MRT",
-            title: "Maandelijkse vergadering",
-            loc: "Vijverhof, Wevelgem",
-        },
-        {
-            day: "16",
-            month: "APR",
-            title: "Lezing & discussieavond",
-            loc: "Vijverhof, Wevelgem",
-        },
-        {
-            day: "21",
-            month: "MEI",
-            title: "Bedrijfsbezoek",
-            loc: "Nader te bepalen",
-        },
-    ];
+    const MONTHS = ['JAN','FEB','MRT','APR','MEI','JUN','JUL','AUG','SEP','OKT','NOV','DEC'];
+
+    const agenda = data.agenda.map(ev => {
+        const d = new Date(ev.datum);
+        return {
+            day: String(d.getUTCDate()).padStart(2, '0'),
+            month: MONTHS[d.getUTCMonth()],
+            title: ev.titel,
+            loc: ev.locatie,
+        };
+    });
 </script>
 
 <svelte:head>
