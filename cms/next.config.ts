@@ -11,6 +11,13 @@ const nextConfig = {
             '.mjs': ['.mts', '.mjs'],
         }
 
+        // Exclude @vercel/og (OG image WASM) — not needed for CMS admin panel.
+        // Saves ~1.4 MiB from the Worker bundle (resvg.wasm + yoga.wasm + font).
+        webpackConfig.resolve.alias = {
+            ...webpackConfig.resolve.alias,
+            'next/dist/compiled/@vercel/og': false,
+        }
+
         return webpackConfig
     },
 }
