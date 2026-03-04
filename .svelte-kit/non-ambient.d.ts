@@ -43,6 +43,6 @@ declare module "$app/types" {
 		};
 		Pathname(): "/" | "/bestuur" | "/betekenis" | "/fotos" | "/historiek" | "/hymne" | "/leden" | "/programma";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
-		Asset(): "/.assetsignore" | "/preview-alternatives.html" | string & {};
+		Asset(): "/.assetsignore" | "/koor.jpg" | "/preview-alternatives.html" | string & {};
 	}
 }

@@ -15,9 +15,9 @@ const env = Object.fromEntries(
         .map(l => l.split('=').map(s => s.trim()))
 )
 
-const EMAIL = env.CMS_ADMIN_EMAIL || 'davidjoseph@speedymail.org'
-const PASSWORD = env.CMS_ADMIN_PASSWORD
-const BASE = 'http://localhost:3000'
+const EMAIL = process.env.SEED_EMAIL || env.CMS_ADMIN_EMAIL || 'davidjoseph@speedymail.org'
+const PASSWORD = process.env.SEED_PASSWORD || env.CMS_ADMIN_PASSWORD
+const BASE = process.env.SEED_BASE || 'http://localhost:3000'
 
 if (!PASSWORD) {
     console.error('❌  Add CMS_ADMIN_PASSWORD=yourpassword to cms/.env and retry.')

@@ -128,6 +128,7 @@ declare module '$env/static/private' {
 	export const USERNAME: string;
 	export const USERPROFILE: string;
 	export const VIRTUAL_ENV: string;
+	export const VITE_CMS_URL: string;
 	export const VSCODE_CODE_CACHE_PATH: string;
 	export const VSCODE_CRASH_REPORTER_PROCESS_TYPE: string;
 	export const VSCODE_CWD: string;
@@ -315,6 +316,7 @@ declare module '$env/dynamic/private' {
 		USERNAME: string;
 		USERPROFILE: string;
 		VIRTUAL_ENV: string;
+		VITE_CMS_URL: string;
 		VSCODE_CODE_CACHE_PATH: string;
 		VSCODE_CRASH_REPORTER_PROCESS_TYPE: string;
 		VSCODE_CWD: string;
