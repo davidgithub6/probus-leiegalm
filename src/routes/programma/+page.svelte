@@ -1,18 +1,31 @@
 <script>
     export let data;
 
-    const MONTHS = ['JAN','FEB','MRT','APR','MEI','JUN','JUL','AUG','SEP','OKT','NOV','DEC'];
+    const MONTHS = [
+        "JAN",
+        "FEB",
+        "MRT",
+        "APR",
+        "MEI",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OKT",
+        "NOV",
+        "DEC",
+    ];
 
-    const events = data.events.map(ev => {
+    const events = data.events.map((ev) => {
         const d = new Date(ev.datum);
         return {
-            day: String(d.getUTCDate()).padStart(2, '0'),
+            day: String(d.getUTCDate()).padStart(2, "0"),
             month: MONTHS[d.getUTCMonth()],
             year: String(d.getUTCFullYear()),
             cat: ev.categorie,
             title: ev.titel,
             loc: ev.locatie,
-            time: ev.tijd ?? '',
+            time: ev.tijd ?? "",
             highlight: ev.uitgelicht,
         };
     });
@@ -73,7 +86,6 @@
 <style>
     .page-hero {
         padding: var(--sp-xl) 0 var(--sp-lg);
-        border-bottom: 1px solid var(--border);
     }
 
     .page-hero h1 {
@@ -87,7 +99,7 @@
     }
 
     .prog-section {
-        padding: var(--sp-xl) 0;
+        padding: var(--sp-lg) var(--sp-md);
     }
 
     .event-list {

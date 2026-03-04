@@ -83,7 +83,6 @@
 <style>
     .page-hero {
         padding: var(--sp-xl) 0 var(--sp-lg);
-        border-bottom: 1px solid var(--border);
     }
     .page-hero h1 {
         font-size: clamp(2.2rem, 4vw, 3.5rem);
@@ -97,7 +96,7 @@
 
     /* Full-width photo */
     .photo-banner {
-        padding-top: var(--sp-xl);
+        padding-top: var(--sp-lg);
     }
     .koor-figure {
         margin: 0;
@@ -117,7 +116,7 @@
 
     /* Lyrics */
     .hymne-section {
-        padding: var(--sp-xl) 0;
+        padding: var(--sp-lg) var(--sp-md);
     }
     .verses-grid {
         display: grid;

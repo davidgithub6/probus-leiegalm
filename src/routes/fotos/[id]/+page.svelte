@@ -2,13 +2,26 @@
     export let data;
 
     const { album } = data;
-    const MAANDEN = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+    const MAANDEN = [
+        "januari",
+        "februari",
+        "maart",
+        "april",
+        "mei",
+        "juni",
+        "juli",
+        "augustus",
+        "september",
+        "oktober",
+        "november",
+        "december",
+    ];
 
     const d = new Date(album.datum);
     const datumLabel = `${MAANDEN[d.getUTCMonth()].charAt(0).toUpperCase() + MAANDEN[d.getUTCMonth()].slice(1)} ${d.getUTCFullYear()}`;
 
     let lightboxSrc = null;
-    let lightboxAlt = '';
+    let lightboxAlt = "";
     let lightboxIndex = 0;
 
     function openLightbox(i) {
@@ -22,7 +35,8 @@
     }
 
     function prev() {
-        lightboxIndex = (lightboxIndex - 1 + album.fotos.length) % album.fotos.length;
+        lightboxIndex =
+            (lightboxIndex - 1 + album.fotos.length) % album.fotos.length;
         lightboxSrc = album.fotos[lightboxIndex].url;
         lightboxAlt = album.fotos[lightboxIndex].alt;
     }
@@ -35,9 +49,9 @@
 
     function onKeydown(e) {
         if (!lightboxSrc) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') prev();
-        if (e.key === 'ArrowRight') next();
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
     }
 </script>
 
@@ -69,8 +83,17 @@
     {:else}
         <div class="photo-grid">
             {#each album.fotos as foto, i}
-                <button class="photo-btn" on:click={() => openLightbox(i)} title={foto.beschrijving || foto.alt}>
-                    <img src={foto.url} alt={foto.alt} class="thumb" loading="lazy" />
+                <button
+                    class="photo-btn"
+                    on:click={() => openLightbox(i)}
+                    title={foto.beschrijving || foto.alt}
+                >
+                    <img
+                        src={foto.url}
+                        alt={foto.alt}
+                        class="thumb"
+                        loading="lazy"
+                    />
                     {#if foto.beschrijving}
                         <span class="photo-caption">{foto.beschrijving}</span>
                     {/if}
@@ -82,9 +105,18 @@
 
 <!-- Lightbox -->
 {#if lightboxSrc}
-    <div class="lightbox" role="dialog" aria-modal="true" aria-label={lightboxAlt}>
-        <button class="lb-close" on:click={closeLightbox} aria-label="Sluiten">✕</button>
-        <button class="lb-nav lb-prev" on:click={prev} aria-label="Vorige">‹</button>
+    <div
+        class="lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label={lightboxAlt}
+    >
+        <button class="lb-close" on:click={closeLightbox} aria-label="Sluiten"
+            >✕</button
+        >
+        <button class="lb-nav lb-prev" on:click={prev} aria-label="Vorige"
+            >‹</button
+        >
         <div class="lb-img-wrap" on:click={closeLightbox}>
             <img
                 src={lightboxSrc}
@@ -93,16 +125,16 @@
                 on:click|stopPropagation
             />
         </div>
-        <button class="lb-nav lb-next" on:click={next} aria-label="Volgende">›</button>
+        <button class="lb-nav lb-next" on:click={next} aria-label="Volgende"
+            >›</button
+        >
         <div class="lb-counter">{lightboxIndex + 1} / {album.fotos.length}</div>
     </div>
 {/if}
 
 <style>
     .page-hero {
-        position: relative;
         padding: var(--sp-xl) 0 var(--sp-lg);
-        border-bottom: 1px solid var(--border);
     }
 
     .hero-img-wrap {
@@ -123,7 +155,11 @@
     .hero-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, transparent 40%, rgba(10,20,40,0.6));
+        background: linear-gradient(
+            to bottom,
+            transparent 40%,
+            rgba(10, 20, 40, 0.6)
+        );
     }
 
     .hero-content {
@@ -143,7 +179,7 @@
 
     .hero-img-wrap ~ .hero-content .label,
     .hero-img-wrap ~ .hero-content .subtitle {
-        color: rgba(255,255,255,0.75);
+        color: rgba(255, 255, 255, 0.75);
     }
 
     .back-link {
@@ -165,7 +201,7 @@
     }
 
     .photo-section {
-        padding: var(--sp-xl) 0;
+        padding: var(--sp-lg) var(--sp-md);
     }
 
     .empty {
@@ -212,7 +248,7 @@
         left: 0;
         right: 0;
         padding: 6px 10px;
-        background: rgba(0,0,0,0.55);
+        background: rgba(0, 0, 0, 0.55);
         color: #fff;
         font-size: 0.75rem;
         line-height: 1.3;
@@ -225,7 +261,7 @@
         position: fixed;
         inset: 0;
         z-index: 1000;
-        background: rgba(0,0,0,0.92);
+        background: rgba(0, 0, 0, 0.92);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -246,7 +282,7 @@
         max-height: 80vh;
         object-fit: contain;
         cursor: default;
-        box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
     }
 
     .lb-close {
@@ -263,7 +299,9 @@
         padding: 4px 8px;
     }
 
-    .lb-close:hover { opacity: 1; }
+    .lb-close:hover {
+        opacity: 1;
+    }
 
     .lb-nav {
         position: absolute;
@@ -280,16 +318,22 @@
         user-select: none;
     }
 
-    .lb-nav:hover { opacity: 1; }
-    .lb-prev { left: 0; }
-    .lb-next { right: 0; }
+    .lb-nav:hover {
+        opacity: 1;
+    }
+    .lb-prev {
+        left: 0;
+    }
+    .lb-next {
+        right: 0;
+    }
 
     .lb-counter {
         position: absolute;
         bottom: 16px;
         left: 50%;
         transform: translateX(-50%);
-        color: rgba(255,255,255,0.6);
+        color: rgba(255, 255, 255, 0.6);
         font-size: 0.8rem;
         letter-spacing: 0.05em;
     }

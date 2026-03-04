@@ -98,7 +98,6 @@
 <style>
     .page-hero {
         padding: var(--sp-xl) 0 var(--sp-lg);
-        border-bottom: 1px solid var(--border);
     }
 
     .page-hero h1 {
@@ -112,7 +111,7 @@
     }
 
     .timeline-section {
-        padding: var(--sp-xl) 0;
+        padding: var(--sp-lg) var(--sp-md);
         max-width: 800px;
     }
 

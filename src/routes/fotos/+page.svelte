@@ -1,7 +1,20 @@
 <script>
     export let data;
 
-    const MAANDEN = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+    const MAANDEN = [
+        "januari",
+        "februari",
+        "maart",
+        "april",
+        "mei",
+        "juni",
+        "juli",
+        "augustus",
+        "september",
+        "oktober",
+        "november",
+        "december",
+    ];
     const HUES = [210, 190, 220, 175, 200, 215];
 
     const albums = data.albums.map((a, i) => {
@@ -38,54 +51,108 @@
     <div class="album-grid">
         {#each albums as album}
             <a
-                href={album.enkelLeden ? '/leden' : `/fotos/${album.id}`}
+                href={album.enkelLeden ? "/leden" : `/fotos/${album.id}`}
                 class="album-card"
-                title={album.enkelLeden ? `${album.titel} (enkel voor leden)` : album.titel}
+                title={album.enkelLeden
+                    ? `${album.titel} (enkel voor leden)`
+                    : album.titel}
             >
-                <div class="cover" role="img" aria-label="Album cover: {album.titel}">
+                <div
+                    class="cover"
+                    role="img"
+                    aria-label="Album cover: {album.titel}"
+                >
                     {#if album.coverUrl}
-                        <img src={album.coverUrl} alt={album.titel} class="cover-img" />
+                        <img
+                            src={album.coverUrl}
+                            alt={album.titel}
+                            class="cover-img"
+                        />
                     {:else}
                         <!-- Procedural fallback cover -->
-                        <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+                        <svg
+                            viewBox="0 0 400 260"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
                             <defs>
-                                <linearGradient id="grad{album.id}" x1="0" y1="0" x2="1" y2="1">
-                                    <stop offset="0%" stop-color="hsl({album.hue},30%,92%)" />
-                                    <stop offset="100%" stop-color="hsl({album.hue},20%,84%)" />
+                                <linearGradient
+                                    id="grad{album.id}"
+                                    x1="0"
+                                    y1="0"
+                                    x2="1"
+                                    y2="1"
+                                >
+                                    <stop
+                                        offset="0%"
+                                        stop-color="hsl({album.hue},30%,92%)"
+                                    />
+                                    <stop
+                                        offset="100%"
+                                        stop-color="hsl({album.hue},20%,84%)"
+                                    />
                                 </linearGradient>
                             </defs>
-                            <rect width="400" height="260" fill="url(#grad{album.id})" />
+                            <rect
+                                width="400"
+                                height="260"
+                                fill="url(#grad{album.id})"
+                            />
                             {#each Array(8) as _, r}
                                 {#each Array(12) as _, c}
-                                    <circle cx={c * 38 + 12} cy={r * 38 + 12} r="1.5"
-                                        fill="hsl({album.hue},25%,65%)" opacity=".35" />
+                                    <circle
+                                        cx={c * 38 + 12}
+                                        cy={r * 38 + 12}
+                                        r="1.5"
+                                        fill="hsl({album.hue},25%,65%)"
+                                        opacity=".35"
+                                    />
                                 {/each}
                             {/each}
                             {#each [60, 90, 120, 150] as rx}
-                                <circle cx="200" cy="130" r={rx} fill="none"
-                                    stroke="hsl({album.hue},25%,70%)" stroke-width="1" opacity=".4" />
+                                <circle
+                                    cx="200"
+                                    cy="130"
+                                    r={rx}
+                                    fill="none"
+                                    stroke="hsl({album.hue},25%,70%)"
+                                    stroke-width="1"
+                                    opacity=".4"
+                                />
                             {/each}
-                            <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle"
-                                fill="hsl({album.hue},30%,40%)" font-family="Georgia,serif"
-                                font-size="40" opacity=".2">{album.fotoCount}×</text>
+                            <text
+                                x="50%"
+                                y="52%"
+                                text-anchor="middle"
+                                dominant-baseline="middle"
+                                fill="hsl({album.hue},30%,40%)"
+                                font-family="Georgia,serif"
+                                font-size="40"
+                                opacity=".2">{album.fotoCount}×</text
+                            >
                         </svg>
                     {/if}
                     {#if album.enkelLeden}
-                        <div class="lock-badge" aria-hidden="true">🔒 Leden</div>
+                        <div class="lock-badge" aria-hidden="true">
+                            🔒 Leden
+                        </div>
                     {/if}
                 </div>
                 <div class="album-meta">
-                    <span class="label">{album.date} · {album.fotoCount} foto's</span>
+                    <span class="label"
+                        >{album.date} · {album.fotoCount} foto's</span
+                    >
                     <h2>{album.titel}</h2>
                 </div>
             </a>
         {/each}
     </div>
 
-    {#if albums.some(a => a.enkelLeden)}
+    {#if albums.some((a) => a.enkelLeden)}
         <div class="teaser-note">
             <p>
-                Sommige albums zijn enkel zichtbaar voor ingelogde leden. <a href="/leden">Aanmelden →</a>
+                Sommige albums zijn enkel zichtbaar voor ingelogde leden. <a
+                    href="/leden">Aanmelden →</a
+                >
             </p>
         </div>
     {/if}
@@ -94,7 +161,6 @@
 <style>
     .page-hero {
         padding: var(--sp-xl) 0 var(--sp-lg);
-        border-bottom: 1px solid var(--border);
     }
 
     .page-hero h1 {
@@ -108,7 +174,7 @@
     }
 
     .gallery-section {
-        padding: var(--sp-xl) 0;
+        padding: var(--sp-lg) var(--sp-md);
     }
 
     .album-grid {

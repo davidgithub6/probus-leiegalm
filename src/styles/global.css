@@ -111,6 +111,26 @@ img {
     padding: 0 var(--sp-md);
 }
 
+/* Hero sections on inner pages: constrain to content width and
+   draw the divider line aligned with the content edges (not the
+   full 1160px element edge, which overshoots by one padding unit) */
+.page-hero {
+    max-width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.page-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--sp-md);
+    right: var(--sp-md);
+    height: 1px;
+    background: var(--border);
+}
+
 /* ── Utilities ── */
 .label {
     font-family: var(--font-sans);

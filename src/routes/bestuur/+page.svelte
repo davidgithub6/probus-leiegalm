@@ -31,14 +31,36 @@
                             class="photo"
                             style={m.fotoUrl && m.foto?.focalX != null
                                 ? `object-position: ${m.foto.focalX}% ${m.foto.focalY}%`
-                                : 'object-position: center 15%'}
+                                : "object-position: center 15%"}
                         />
                     {:else}
                         <div class="photo-placeholder" aria-hidden="true">
                             <svg viewBox="0 0 80 80" fill="none">
-                                <circle cx="40" cy="32" r="16" stroke="var(--accent)" stroke-width="1.2" opacity=".4" />
-                                <path d="M10 75 Q40 55 70 75" stroke="var(--accent)" stroke-width="1.2" opacity=".4" fill="none" />
-                                <text x="40" y="36" text-anchor="middle" dominant-baseline="middle" fill="var(--accent-gold)" font-family="Georgia,serif" font-size="22" opacity=".8">{m.naam[0]}</text>
+                                <circle
+                                    cx="40"
+                                    cy="32"
+                                    r="16"
+                                    stroke="var(--accent)"
+                                    stroke-width="1.2"
+                                    opacity=".4"
+                                />
+                                <path
+                                    d="M10 75 Q40 55 70 75"
+                                    stroke="var(--accent)"
+                                    stroke-width="1.2"
+                                    opacity=".4"
+                                    fill="none"
+                                />
+                                <text
+                                    x="40"
+                                    y="36"
+                                    text-anchor="middle"
+                                    dominant-baseline="middle"
+                                    fill="var(--accent-gold)"
+                                    font-family="Georgia,serif"
+                                    font-size="22"
+                                    opacity=".8">{m.naam[0]}</text
+                                >
                             </svg>
                         </div>
                     {/if}
@@ -66,7 +88,6 @@
 <style>
     .page-hero {
         padding: var(--sp-xl) 0 var(--sp-lg);
-        border-bottom: 1px solid var(--border);
     }
 
     .page-hero h1 {
@@ -80,7 +101,7 @@
     }
 
     .board-section {
-        padding: var(--sp-xl) 0;
+        padding: var(--sp-lg) var(--sp-md);
     }
 
     .board-grid {

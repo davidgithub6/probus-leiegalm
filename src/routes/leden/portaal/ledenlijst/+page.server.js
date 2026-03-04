@@ -4,7 +4,7 @@ export async function load({ platform, locals }) {
     const db = platform?.env?.DB;
     const [ledenResult, pageData] = await Promise.all([
         db
-            ? db.prepare('SELECT naam, email, created_at FROM leden_accounts ORDER BY naam ASC').all()
+            ? db.prepare('SELECT naam, email, created_at FROM leden_accounts ORDER BY naam ASC').all().catch(() => ({ results: [] }))
             : Promise.resolve({ results: [] }),
         fetchCollection('paginas', {
             'where[slug][equals]': 'ledenlijst',
