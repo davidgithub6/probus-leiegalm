@@ -7,8 +7,8 @@ function absoluteUrl(url) {
     return url.startsWith('http') ? url : CMS_URL + url;
 }
 
-export async function load() {
-    const docs = await fetchBestuursleden();
+export async function load({ locals }) {
+    const docs = await fetchBestuursleden(locals.cmsFetch);
     const bestuursleden = docs.map(m => ({
         ...m,
         fotoUrl: absoluteUrl(m.foto?.url ?? null),
