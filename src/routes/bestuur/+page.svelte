@@ -23,22 +23,32 @@
     <div class="board-grid">
         {#each data.bestuursleden as m}
             <div class="board-card">
-                <div class="avatar">
+                <div class="photo-wrap">
                     {#if m.fotoUrl}
-                        <img src={m.fotoUrl} alt={m.naam} class="avatar-img" />
+                        <img
+                            src={m.fotoUrl}
+                            alt={m.naam}
+                            class="photo"
+                            style={m.fotoUrl && m.foto?.focalX != null
+                                ? `object-position: ${m.foto.focalX}% ${m.foto.focalY}%`
+                                : 'object-position: center 15%'}
+                        />
                     {:else}
-                        <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                            <circle cx="40" cy="40" r="39" stroke="var(--accent)" stroke-width="1" opacity=".3" />
-                            <circle cx="40" cy="30" r="14" stroke="var(--accent)" stroke-width="1.2" opacity=".5" />
-                            <path d="M10 75 Q40 55 70 75" stroke="var(--accent)" stroke-width="1.2" opacity=".4" fill="none" />
-                            <text x="40" y="36" text-anchor="middle" dominant-baseline="middle" fill="var(--accent-gold)" font-family="Georgia,serif" font-size="18" opacity=".8">{m.naam[0]}</text>
-                        </svg>
+                        <div class="photo-placeholder" aria-hidden="true">
+                            <svg viewBox="0 0 80 80" fill="none">
+                                <circle cx="40" cy="32" r="16" stroke="var(--accent)" stroke-width="1.2" opacity=".4" />
+                                <path d="M10 75 Q40 55 70 75" stroke="var(--accent)" stroke-width="1.2" opacity=".4" fill="none" />
+                                <text x="40" y="36" text-anchor="middle" dominant-baseline="middle" fill="var(--accent-gold)" font-family="Georgia,serif" font-size="22" opacity=".8">{m.naam[0]}</text>
+                            </svg>
+                        </div>
                     {/if}
                 </div>
                 <div class="member-info">
                     <span class="role-label label">{m.functie}</span>
                     <p class="name">{m.naam}</p>
-                    <p class="desc">{m.beschrijving ?? ''}</p>
+                    {#if m.beschrijving}
+                        <p class="desc">{m.beschrijving}</p>
+                    {/if}
                 </div>
             </div>
         {/each}
@@ -75,17 +85,16 @@
 
     .board-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: var(--sp-md);
     }
 
     .board-card {
         background: var(--surface);
         border: 1px solid var(--border);
-        padding: var(--sp-md);
+        overflow: hidden;
         display: flex;
-        gap: var(--sp-md);
-        align-items: flex-start;
+        flex-direction: column;
         transition:
             transform var(--dur) var(--ease),
             box-shadow var(--dur) var(--ease);
@@ -97,29 +106,47 @@
         border-color: var(--accent-gold);
     }
 
-    .avatar {
-        width: 64px;
-        flex-shrink: 0;
+    .photo-wrap {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+        background: var(--bg);
     }
-    .avatar svg {
-        width: 64px;
-        height: 64px;
-    }
-    .avatar-img {
-        width: 64px;
-        height: 64px;
+
+    .photo {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        border-radius: 50%;
+        display: block;
+    }
+
+    .photo-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: color-mix(in srgb, var(--accent) 6%, transparent);
+    }
+
+    .photo-placeholder svg {
+        width: 60%;
+        height: 60%;
+        opacity: 0.6;
+    }
+
+    .member-info {
+        padding: var(--sp-sm) var(--sp-md) var(--sp-md);
     }
 
     .role-label {
         display: block;
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.25rem;
     }
 
     .name {
         font-family: var(--font-serif);
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         color: var(--accent);
         margin-bottom: 0.25rem;
     }
@@ -128,6 +155,7 @@
         font-size: 0.8rem;
         color: var(--text-muted);
         line-height: 1.55;
+        margin: 0;
     }
 
     .admin-note {
@@ -144,9 +172,9 @@
         text-decoration: underline;
     }
 
-    @media (max-width: 580px) {
+    @media (max-width: 480px) {
         .board-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 </style>
