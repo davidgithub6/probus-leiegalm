@@ -2,8 +2,8 @@ import { validateSession } from '$lib/server/auth.js';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-    // CMS service binding
-    const cms = event.platform?.env?.CMS;
+    // CMS service binding — only use in production (service binding unavailable in local dev)
+    const cms = !import.meta.env.DEV && event.platform?.env?.CMS;
     event.locals.cmsFetch = cms
         ? (url, opts) => cms.fetch(url, opts)
         : globalThis.fetch;

@@ -11,7 +11,7 @@ export const actions = {
         const data = await request.formData();
         const wachtwoord = data.get('wachtwoord')?.toString() ?? '';
 
-        const expected = platform?.env?.LEDEN_PASSWORD;
+        const expected = platform?.env?.LEDEN_PASSWORD ?? import.meta.env.VITE_LEDEN_PASSWORD;
         if (!expected) return fail(500, { error: 'Portaal tijdelijk niet beschikbaar.' });
 
         if (wachtwoord !== expected) {

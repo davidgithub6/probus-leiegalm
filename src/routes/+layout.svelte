@@ -1,4 +1,5 @@
 <script>
+    import { page } from "$app/stores";
     import "$styles/global.css";
     import Navbar from "$lib/components/Navbar.svelte";
     import Footer from "$lib/components/Footer.svelte";
@@ -14,7 +15,9 @@
     {@render children()}
 </main>
 
-<Footer />
+{#if !$page.url.pathname.startsWith("/leden/portaal")}
+    <Footer />
+{/if}
 
 <style>
     main {

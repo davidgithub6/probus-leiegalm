@@ -3,10 +3,26 @@
     export let data;
 
     const quickLinks = [
-        { href: '/leden/portaal/verslagen', label: 'Verslagen', desc: 'Verslagen van vergaderingen' },
-        { href: '/leden/portaal/wie-is-wie', label: 'Wie is wie', desc: 'Ereleden en profielen' },
-        { href: '/leden/portaal/ledenlijst', label: 'Ledenlijst', desc: 'Overzicht van alle leden' },
-        { href: '/leden/portaal/huisreglement', label: 'Huisreglement', desc: 'Reglement van de club' },
+        {
+            href: "/leden/portaal/verslagen",
+            label: "Verslagen",
+            desc: "Verslagen van vergaderingen",
+        },
+        {
+            href: "/leden/portaal/wie-is-wie",
+            label: "Wie is wie",
+            desc: "Ereleden en profielen",
+        },
+        {
+            href: "/leden/portaal/ledenlijst",
+            label: "Ledenlijst",
+            desc: "Overzicht van alle leden",
+        },
+        {
+            href: "/leden/portaal/huisreglement",
+            label: "Huisreglement",
+            desc: "Reglement van de club",
+        },
     ];
 </script>
 
@@ -16,8 +32,10 @@
 
 <div class="dashboard">
     <header class="dash-header">
-        <h1>Welkom, {data.lid?.naam ?? 'lid'}.</h1>
-        <p class="sub">U bent aangemeld bij het ledenportaal van Probus LEIEGALM.</p>
+        <h1>Welkom, {data.lid?.naam ?? "lid"}.</h1>
+        <p class="sub">
+            U bent aangemeld bij het ledenportaal van Probus LEIEGALM.
+        </p>
     </header>
 
     <div class="quick-grid">
@@ -53,8 +71,14 @@
 
     .quick-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(1, 1fr);
         gap: var(--sp-md);
+    }
+
+    @media (min-width: 600px) {
+        .quick-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
     .quick-card {

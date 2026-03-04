@@ -3,7 +3,7 @@
  * Used by SvelteKit server-side load functions to fetch content from the CMS.
  */
 
-const CMS_URL = import.meta.env.VITE_CMS_URL || 'http://localhost:3000';
+const CMS_URL = import.meta.env.VITE_CMS_URL || 'http://127.0.0.1:3000';
 
 /**
  * Turn a possibly-relative media URL into an absolute URL pointing at the CMS.

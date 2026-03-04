@@ -10,7 +10,7 @@ export const actions = {
         const db = platform?.env?.DB;
         const token = cookies.get('lid_session');
 
-        if (db && token) {
+        if (db && token && token !== 'fixed') {
             await db.prepare('DELETE FROM leden_sessions WHERE token = ?').bind(token).run();
         }
 

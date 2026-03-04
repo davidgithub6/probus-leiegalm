@@ -1,16 +1,16 @@
 <script>
-    import { page } from '$app/stores';
-    import { enhance } from '$app/forms';
+    import { page } from "$app/stores";
+    import { enhance } from "$app/forms";
 
     /** @type {import('./$types').LayoutData} */
     export let data;
 
     const navItems = [
-        { href: '/leden/portaal', label: 'Dashboard' },
-        { href: '/leden/portaal/verslagen', label: 'Verslagen' },
-        { href: '/leden/portaal/wie-is-wie', label: 'Wie is wie' },
-        { href: '/leden/portaal/ledenlijst', label: 'Ledenlijst' },
-        { href: '/leden/portaal/huisreglement', label: 'Huisreglement' },
+        { href: "/leden/portaal", label: "Dashboard" },
+        { href: "/leden/portaal/verslagen", label: "Verslagen" },
+        { href: "/leden/portaal/wie-is-wie", label: "Wie is wie" },
+        { href: "/leden/portaal/ledenlijst", label: "Ledenlijst" },
+        { href: "/leden/portaal/huisreglement", label: "Huisreglement" },
     ];
 </script>
 
@@ -29,7 +29,8 @@
                     href={item.href}
                     class="nav-item"
                     class:active={$page.url.pathname === item.href ||
-                        ($page.url.pathname.startsWith(item.href + '/') && item.href !== '/leden/portaal')}
+                        ($page.url.pathname.startsWith(item.href + "/") &&
+                            item.href !== "/leden/portaal")}
                 >
                     {item.label}
                 </a>
@@ -37,7 +38,7 @@
         </nav>
 
         <div class="sidebar-footer">
-            <span class="user-name">{data.lid?.naam ?? ''}</span>
+            <span class="user-name">{data.lid?.naam ?? ""}</span>
             <form method="POST" action="/leden/portaal?/logout" use:enhance>
                 <button type="submit" class="logout-btn">Afmelden</button>
             </form>
@@ -57,7 +58,7 @@
 
     /* Sidebar */
     .sidebar {
-        width: 220px;
+        width: 250px;
         flex-shrink: 0;
         background: var(--accent);
         display: flex;
@@ -77,6 +78,8 @@
         display: flex;
         flex-direction: column;
         text-decoration: none;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
 
     .brand-name {
@@ -88,7 +91,7 @@
 
     .brand-sub {
         font-size: 0.65rem;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.55);
     }
@@ -105,7 +108,9 @@
         font-size: 0.85rem;
         color: rgba(255, 255, 255, 0.75);
         text-decoration: none;
-        transition: background var(--dur), color var(--dur);
+        transition:
+            background var(--dur),
+            color var(--dur);
         border-left: 3px solid transparent;
     }
 
@@ -144,7 +149,9 @@
         font-size: 0.75rem;
         cursor: pointer;
         text-align: left;
-        transition: background var(--dur), color var(--dur);
+        transition:
+            background var(--dur),
+            color var(--dur);
     }
 
     .logout-btn:hover {
