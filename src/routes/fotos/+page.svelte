@@ -11,6 +11,7 @@
             title: a.titel,
             date: `${MAANDEN[d.getUTCMonth()].charAt(0).toUpperCase() + MAANDEN[d.getUTCMonth()].slice(1)} ${d.getUTCFullYear()}`,
             count: a.fotos?.length ?? 0,
+            enkelLeden: a.enkelLeden ?? true,
         };
     });
 
@@ -43,9 +44,9 @@
     <div class="album-grid">
         {#each albums as album}
             <a
-                href="/leden"
+                href={album.enkelLeden ? '/leden' : '#'}
                 class="album-card"
-                title="Bekijk {album.title} (enkel voor leden)"
+                title={album.enkelLeden ? `${album.title} (enkel voor leden)` : album.title}
             >
                 <!-- Procedural cover via inline SVG + gradient -->
                 <div
@@ -116,7 +117,9 @@
                             opacity=".2">{album.count}×</text
                         >
                     </svg>
-                    <div class="lock-badge" aria-hidden="true">🔒 Leden</div>
+                    {#if album.enkelLeden}
+                        <div class="lock-badge" aria-hidden="true">🔒 Leden</div>
+                    {/if}
                 </div>
                 <div class="album-meta">
                     <span class="label"
