@@ -1,8 +1,7 @@
 <script>
     import { enhance } from '$app/forms';
 
-    /** @type {import('./$types').ActionData} */
-    export let form;
+    let { form } = $props();
 
     let loading = $state(false);
 </script>
