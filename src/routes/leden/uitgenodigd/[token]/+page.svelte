@@ -8,41 +8,19 @@
 </script>
 
 <svelte:head>
-    <title>Ledenpagina — Probus LEIEGALM</title>
-    <meta
-        name="description"
-        content="Beveiligd ledenportaal van Probus LEIEGALM Menen-Wevelgem."
-    />
+    <title>Registreren — Probus LEIEGALM</title>
 </svelte:head>
 
 <div class="login-page">
     <div class="login-panel">
-        <!-- Procedural crest in top panel -->
         <div class="panel-header">
-            <svg
-                viewBox="0 0 80 80"
-                fill="none"
-                width="56"
-                height="56"
-                aria-hidden="true"
-            >
-                <circle
-                    cx="40"
-                    cy="40"
-                    r="38"
-                    stroke="rgba(255,255,255,.4)"
-                    stroke-width="1.2"
-                />
-                <path
-                    d="M20 40 L40 22 L60 40 L40 58 Z"
-                    stroke="rgba(255,255,255,.5)"
-                    stroke-width="1.5"
-                    fill="none"
-                />
+            <svg viewBox="0 0 80 80" fill="none" width="56" height="56" aria-hidden="true">
+                <circle cx="40" cy="40" r="38" stroke="rgba(255,255,255,.4)" stroke-width="1.2" />
+                <path d="M20 40 L40 22 L60 40 L40 58 Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none" />
                 <circle cx="40" cy="40" r="6" fill="rgba(184,146,42,.8)" />
             </svg>
-            <h1>Ledenportaal</h1>
-            <p class="tagline">Enkel voor leden van Probus LEIEGALM</p>
+            <h1>Welkom</h1>
+            <p class="tagline">Registreer uw account</p>
         </div>
 
         <form
@@ -57,15 +35,15 @@
             class="login-form"
         >
             <div class="field">
-                <label for="email">E-mailadres</label>
+                <label for="naam">Volledige naam</label>
                 <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="naam@voorbeeld.be"
-                    autocomplete="email"
+                    id="naam"
+                    name="naam"
+                    type="text"
+                    placeholder="Voornaam Achternaam"
+                    autocomplete="name"
                     required
-                    value={form?.email ?? ''}
+                    value={form?.naam ?? ''}
                 />
             </div>
 
@@ -74,33 +52,22 @@
             {/if}
 
             <button type="submit" class="btn-submit" disabled={loading}>
-                {loading ? 'Even geduld…' : 'Inlogcode versturen'}
+                {loading ? 'Even geduld…' : 'Account aanmaken'}
             </button>
         </form>
 
         <div class="help-links">
-            <a href="mailto:secretariaat@leiegalm.be">Geen account?</a>
+            <a href="mailto:secretariaat@leiegalm.be">Hulp nodig?</a>
             <span>·</span>
             <a href="/">Terug naar start</a>
         </div>
     </div>
 
-    <!-- Decorative background grid -->
     <div class="bg-deco" aria-hidden="true">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <pattern
-                    id="grid"
-                    width="40"
-                    height="40"
-                    patternUnits="userSpaceOnUse"
-                >
-                    <path
-                        d="M 40 0 L 0 0 0 40"
-                        fill="none"
-                        stroke="rgba(27,58,92,.06)"
-                        stroke-width="1"
-                    />
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(27,58,92,.06)" stroke-width="1" />
                 </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
@@ -119,7 +86,6 @@
         overflow: hidden;
     }
 
-    /* Background decorative grid */
     .bg-deco {
         position: absolute;
         inset: 0;
@@ -127,7 +93,6 @@
         z-index: 0;
     }
 
-    /* Login panel */
     .login-panel {
         position: relative;
         z-index: 1;
@@ -161,7 +126,6 @@
         text-transform: uppercase;
     }
 
-    /* Form */
     .login-form {
         padding: var(--sp-lg);
         display: flex;
@@ -183,7 +147,7 @@
         color: var(--text-muted);
     }
 
-    input[type='email'] {
+    input[type='text'] {
         padding: 0.75rem var(--sp-sm);
         border: 1.5px solid var(--border);
         background: var(--surface-alt);
@@ -193,7 +157,7 @@
             box-shadow var(--dur);
     }
 
-    input[type='email']:focus {
+    input[type='text']:focus {
         outline: none;
         border-color: var(--accent);
         box-shadow: 0 0 0 3px rgba(27, 58, 92, 0.08);

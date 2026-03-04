@@ -14,6 +14,9 @@ import { Evenementen } from './collections/Evenementen'
 import { Bestuursleden } from './collections/Bestuursleden'
 import { FotoAlbums } from './collections/FotoAlbums'
 import { Paginas } from './collections/Paginas'
+import { Verslagen } from './collections/Verslagen'
+import { WieIsWie } from './collections/WieIsWie'
+import { Uitnodigingen } from './collections/Uitnodigingen'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -57,7 +60,7 @@ export default buildConfig({
             titleSuffix: ' — Probus CMS',
         },
     },
-    collections: [Users, Media, Evenementen, Bestuursleden, FotoAlbums, Paginas],
+    collections: [Users, Media, Evenementen, Bestuursleden, FotoAlbums, Paginas, Verslagen, WieIsWie, Uitnodigingen],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {

@@ -10,3 +10,8 @@ binding = "ASSETS"
 [[services]]
 binding = "CMS"
 service = "probus-cms"
+
+[[d1_databases]]
+binding = "DB"
+database_id = "950b9dc5-b8a9-43ad-be3d-278c3ab95401"
+database_name = "probus-cms"
