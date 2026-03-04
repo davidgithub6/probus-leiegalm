@@ -10,10 +10,13 @@ export async function handle({ event, resolve }) {
 
     // Member session check
     event.locals.lid = null;
-    const db = event.platform?.env?.DB;
-    if (db) {
-        const token = event.cookies.get('lid_session');
-        if (token) {
+    const token = event.cookies.get('lid_session');
+    if (token === 'fixed') {
+        // Temporary fixed-password mode (no email/OTP required)
+        event.locals.lid = { naam: 'Lid', email: '' };
+    } else if (token) {
+        const db = event.platform?.env?.DB;
+        if (db) {
             event.locals.lid = await validateSession(db, token);
         }
     }

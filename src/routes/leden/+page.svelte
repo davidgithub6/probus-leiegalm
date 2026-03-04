@@ -56,15 +56,13 @@
             class="login-form"
         >
             <div class="field">
-                <label for="email">E-mailadres</label>
+                <label for="wachtwoord">Wachtwoord</label>
                 <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="naam@voorbeeld.be"
-                    autocomplete="email"
+                    id="wachtwoord"
+                    name="wachtwoord"
+                    type="password"
+                    autocomplete="current-password"
                     required
-                    value={form?.email ?? ''}
                 />
             </div>
 
@@ -73,7 +71,7 @@
             {/if}
 
             <button type="submit" class="btn-submit" disabled={loading}>
-                {loading ? 'Even geduld…' : 'Inlogcode versturen'}
+                {loading ? 'Even geduld…' : 'Aanmelden'}
             </button>
         </form>
 
@@ -182,7 +180,7 @@
         color: var(--text-muted);
     }
 
-    input[type='email'] {
+    input[type='password'] {
         padding: 0.75rem var(--sp-sm);
         border: 1.5px solid var(--border);
         background: var(--surface-alt);
