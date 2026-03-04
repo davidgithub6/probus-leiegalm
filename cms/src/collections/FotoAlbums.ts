@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const FotoAlbums: CollectionConfig = {
     slug: 'fotoalbums',
+    labels: { singular: 'Fotoalbum', plural: 'Fotoalbums' },
     admin: {
         useAsTitle: 'titel',
         defaultColumns: ['titel', 'datum', 'enkelLeden'],

@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const Bestuursleden: CollectionConfig = {
     slug: 'bestuursleden',
+    labels: { singular: 'Bestuurslid', plural: 'Bestuursleden' },
     admin: {
         useAsTitle: 'naam',
         defaultColumns: ['naam', 'functie', 'volgorde'],

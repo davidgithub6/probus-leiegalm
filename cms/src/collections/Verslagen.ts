@@ -17,6 +17,7 @@ const MAANDEN = [
 
 export const Verslagen: CollectionConfig = {
     slug: 'verslagen',
+    labels: { singular: 'Verslag', plural: 'Verslagen' },
     admin: {
         useAsTitle: 'werkjaar',
         defaultColumns: ['werkjaar', 'maand'],

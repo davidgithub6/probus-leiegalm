@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const Uitnodigingen: CollectionConfig = {
     slug: 'uitnodigingen',
+    labels: { singular: 'Uitnodiging', plural: 'Uitnodigingen' },
     admin: {
         useAsTitle: 'email',
         defaultColumns: ['email', 'expires_at', 'gebruikt'],

@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const WieIsWie: CollectionConfig = {
     slug: 'wie_is_wie',
+    labels: { singular: 'Wie is wie profiel', plural: 'Wie is wie' },
     admin: {
         useAsTitle: 'naam',
         defaultColumns: ['naam', 'omschrijving', 'volgorde'],
