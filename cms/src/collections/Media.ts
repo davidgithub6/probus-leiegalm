@@ -14,8 +14,8 @@ export const Media: CollectionConfig = {
         },
     ],
     upload: {
-        // Sharp is not available on Workers yet
+        // Sharp is not available on Workers — crop disabled, focalPoint is metadata-only (no image processing)
         crop: false,
-        focalPoint: false,
+        focalPoint: true,
     },
 }
