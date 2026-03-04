@@ -95,7 +95,7 @@ export async function fetchBestuursleden(fetcher = globalThis.fetch) {
 }
 
 /**
- * Fetch foto albums.
+ * Fetch foto albums (cover images only, depth=1).
  * @param {typeof fetch} [fetcher]
  * @returns {Promise<any[]>}
  */
@@ -106,4 +106,16 @@ export async function fetchFotoAlbums(fetcher = globalThis.fetch) {
         depth: '1',
     }, fetcher);
     return data.docs || [];
+}
+
+/**
+ * Fetch a single foto album with all photos populated (depth=2).
+ * @param {string|number} id - Album ID
+ * @param {typeof fetch} [fetcher]
+ * @returns {Promise<any|null>}
+ */
+export async function fetchFotoAlbum(id, fetcher = globalThis.fetch) {
+    const res = await fetcher(`${CMS_URL}/api/fotoalbums/${id}?depth=2`);
+    if (!res.ok) return null;
+    return res.json();
 }

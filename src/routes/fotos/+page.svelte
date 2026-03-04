@@ -7,17 +7,11 @@
     const albums = data.albums.map((a, i) => {
         const d = new Date(a.datum);
         return {
-            id: i + 1,
-            title: a.titel,
+            ...a,
             date: `${MAANDEN[d.getUTCMonth()].charAt(0).toUpperCase() + MAANDEN[d.getUTCMonth()].slice(1)} ${d.getUTCFullYear()}`,
-            count: a.fotos?.length ?? 0,
-            enkelLeden: a.enkelLeden ?? true,
+            hue: HUES[i % HUES.length],
         };
     });
-
-    function hue(id) {
-        return HUES[(id - 1) % HUES.length];
-    }
 </script>
 
 <svelte:head>
@@ -44,100 +38,57 @@
     <div class="album-grid">
         {#each albums as album}
             <a
-                href={album.enkelLeden ? '/leden' : '#'}
+                href={album.enkelLeden ? '/leden' : `/fotos/${album.id}`}
                 class="album-card"
-                title={album.enkelLeden ? `${album.title} (enkel voor leden)` : album.title}
+                title={album.enkelLeden ? `${album.titel} (enkel voor leden)` : album.titel}
             >
-                <!-- Procedural cover via inline SVG + gradient -->
-                <div
-                    class="cover"
-                    role="img"
-                    aria-label="Album cover: {album.title}"
-                >
-                    <svg
-                        viewBox="0 0 400 260"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <defs>
-                            <linearGradient
-                                id="grad{album.id}"
-                                x1="0"
-                                y1="0"
-                                x2="1"
-                                y2="1"
-                            >
-                                <stop
-                                    offset="0%"
-                                    stop-color="hsl({hue(album.id)},30%,92%)"
-                                />
-                                <stop
-                                    offset="100%"
-                                    stop-color="hsl({hue(album.id)},20%,84%)"
-                                />
-                            </linearGradient>
-                        </defs>
-                        <rect
-                            width="400"
-                            height="260"
-                            fill="url(#grad{album.id})"
-                        />
-                        <!-- dot grid -->
-                        {#each Array(8) as _, r}
-                            {#each Array(12) as _, c}
-                                <circle
-                                    cx={c * 38 + 12}
-                                    cy={r * 38 + 12}
-                                    r="1.5"
-                                    fill="hsl({hue(album.id)},25%,65%)"
-                                    opacity=".35"
-                                />
+                <div class="cover" role="img" aria-label="Album cover: {album.titel}">
+                    {#if album.coverUrl}
+                        <img src={album.coverUrl} alt={album.titel} class="cover-img" />
+                    {:else}
+                        <!-- Procedural fallback cover -->
+                        <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="grad{album.id}" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="hsl({album.hue},30%,92%)" />
+                                    <stop offset="100%" stop-color="hsl({album.hue},20%,84%)" />
+                                </linearGradient>
+                            </defs>
+                            <rect width="400" height="260" fill="url(#grad{album.id})" />
+                            {#each Array(8) as _, r}
+                                {#each Array(12) as _, c}
+                                    <circle cx={c * 38 + 12} cy={r * 38 + 12} r="1.5"
+                                        fill="hsl({album.hue},25%,65%)" opacity=".35" />
+                                {/each}
                             {/each}
-                        {/each}
-                        <!-- concentric -->
-                        {#each [60, 90, 120, 150] as rx}
-                            <circle
-                                cx="200"
-                                cy="130"
-                                r={rx}
-                                fill="none"
-                                stroke="hsl({hue(album.id)},25%,70%)"
-                                stroke-width="1"
-                                opacity=".4"
-                            />
-                        {/each}
-                        <!-- Count badge -->
-                        <text
-                            x="50%"
-                            y="52%"
-                            text-anchor="middle"
-                            dominant-baseline="middle"
-                            fill="hsl({hue(album.id)},30%,40%)"
-                            font-family="Georgia,serif"
-                            font-size="40"
-                            opacity=".2">{album.count}×</text
-                        >
-                    </svg>
+                            {#each [60, 90, 120, 150] as rx}
+                                <circle cx="200" cy="130" r={rx} fill="none"
+                                    stroke="hsl({album.hue},25%,70%)" stroke-width="1" opacity=".4" />
+                            {/each}
+                            <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle"
+                                fill="hsl({album.hue},30%,40%)" font-family="Georgia,serif"
+                                font-size="40" opacity=".2">{album.fotoCount}×</text>
+                        </svg>
+                    {/if}
                     {#if album.enkelLeden}
                         <div class="lock-badge" aria-hidden="true">🔒 Leden</div>
                     {/if}
                 </div>
                 <div class="album-meta">
-                    <span class="label"
-                        >{album.date} · {album.count} foto's</span
-                    >
-                    <h2>{album.title}</h2>
+                    <span class="label">{album.date} · {album.fotoCount} foto's</span>
+                    <h2>{album.titel}</h2>
                 </div>
             </a>
         {/each}
     </div>
 
-    <div class="teaser-note">
-        <p>
-            Foto's zijn enkel zichtbaar voor ingelogde leden. <a href="/leden"
-                >Aanmelden →</a
-            >
-        </p>
-    </div>
+    {#if albums.some(a => a.enkelLeden)}
+        <div class="teaser-note">
+            <p>
+                Sommige albums zijn enkel zichtbaar voor ingelogde leden. <a href="/leden">Aanmelden →</a>
+            </p>
+        </div>
+    {/if}
 </section>
 
 <style>
@@ -172,6 +123,7 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        text-decoration: none;
         transition:
             transform var(--dur) var(--ease),
             box-shadow var(--dur) var(--ease),
@@ -187,12 +139,25 @@
     .cover {
         position: relative;
         overflow: hidden;
+        aspect-ratio: 3 / 2;
+    }
+
+    .cover-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s var(--ease);
+    }
+
+    .album-card:hover .cover-img {
+        transform: scale(1.04);
     }
 
     .cover svg {
         display: block;
         width: 100%;
-        height: auto;
+        height: 100%;
         transition: transform 0.4s var(--ease);
     }
 
@@ -225,6 +190,7 @@
         font-family: var(--font-serif);
         font-size: 1.05rem;
         color: var(--accent);
+        margin: 0;
     }
 
     .teaser-note {
