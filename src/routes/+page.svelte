@@ -50,9 +50,7 @@
             <h1>Probus<br /><em>Leiegalm</em></h1>
             <span class="gold-rule"></span>
             <p class="lead">
-                Een kring van gepensioneerde professionals gebonden door
-                vriendschap, intellectuele nieuwsgierigheid en gedeelde
-                levenservaring.
+                {data.heroTekst ?? 'Een kring van gepensioneerde professionals gebonden door vriendschap, intellectuele nieuwsgierigheid en gedeelde levenservaring.'}
             </p>
             <div class="hero-cta">
                 <a href="/betekenis" class="btn-primary">Meer over Probus</a>
