@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { lexicalEditor, HorizontalRuleFeature } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
@@ -61,7 +61,9 @@ export default buildConfig({
         },
     },
     collections: [Users, Media, Evenementen, Bestuursleden, FotoAlbums, Paginas, Verslagen, WieIsWie, Uitnodigingen],
-    editor: lexicalEditor(),
+    editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [...defaultFeatures, HorizontalRuleFeature()],
+    }),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
         outputFile: path.resolve(dirname, 'payload-types.ts'),
