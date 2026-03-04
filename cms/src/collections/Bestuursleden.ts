@@ -18,17 +18,9 @@ export const Bestuursleden: CollectionConfig = {
         },
         {
             name: 'functie',
-            type: 'select',
+            type: 'text',
             label: 'Functie',
             required: true,
-            options: [
-                { label: 'Voorzitter', value: 'Voorzitter' },
-                { label: 'Ondervoorzitter', value: 'Ondervoorzitter' },
-                { label: 'Secretaris', value: 'Secretaris' },
-                { label: 'Penningmeester', value: 'Penningmeester' },
-                { label: 'Activiteitencoördinator', value: 'Activiteitencoördinator' },
-                { label: 'Archivaris', value: 'Archivaris' },
-            ],
         },
         {
             name: 'beschrijving',
