@@ -42,6 +42,16 @@ export const Paginas: CollectionConfig = {
             label: 'Pagina inhoud',
         },
         {
+            name: 'bijlage',
+            type: 'upload',
+            label: 'Bijlage (PDF)',
+            relationTo: 'media',
+            admin: {
+                description: 'Optionele PDF-bijlage, bv. ledenlijst',
+                condition: (data) => data?.slug === 'ledenlijst',
+            },
+        },
+        {
             name: 'metaBeschrijving',
             type: 'textarea',
             label: 'Meta beschrijving (SEO)',
