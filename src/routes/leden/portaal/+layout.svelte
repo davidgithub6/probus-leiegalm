@@ -1,6 +1,7 @@
 <script>
     import { page } from "$app/stores";
     import { enhance } from "$app/forms";
+    import ProbusLogo from "$lib/components/ProbusLogo.svelte";
 
     /** @type {import('./$types').LayoutData} */
     export let data;
@@ -17,9 +18,12 @@
 <div class="portal-shell">
     <aside class="sidebar">
         <div class="sidebar-header">
-            <a href="/leden/portaal" class="brand">
-                <span class="brand-name">Probus</span>
-                <span class="brand-sub">LEIEGALM</span>
+            <a href="/" class="brand">
+                <ProbusLogo size={36} />
+                <div class="brand-text">
+                    <span class="brand-name">Probus</span>
+                    <span class="brand-sub">LEIEGALM</span>
+                </div>
             </a>
         </div>
 
@@ -53,7 +57,7 @@
 <style>
     .portal-shell {
         display: flex;
-        min-height: calc(100vh - 72px);
+        min-height: 100vh;
     }
 
     /* Sidebar */
@@ -64,8 +68,8 @@
         display: flex;
         flex-direction: column;
         position: sticky;
-        top: 72px;
-        height: calc(100vh - 72px);
+        top: 0;
+        height: 100vh;
         overflow-y: auto;
     }
 
@@ -76,21 +80,31 @@
 
     .brand {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        gap: 0.65rem;
         text-decoration: none;
-        overflow-wrap: break-word;
-        word-wrap: break-word;
+    }
+
+    .brand :global(svg) {
+        flex-shrink: 0;
+        color: #fff;
+        opacity: 0.9;
+    }
+
+    .brand-text {
+        display: flex;
+        flex-direction: column;
     }
 
     .brand-name {
         font-family: var(--font-serif);
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         color: #fff;
         line-height: 1.2;
     }
 
     .brand-sub {
-        font-size: 0.65rem;
+        font-size: 0.62rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.55);

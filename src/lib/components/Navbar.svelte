@@ -26,7 +26,7 @@
 </script>
 
 <header class:scrolled>
-    <div class="inner wide">
+    <div class="inner container">
         <!-- Logo -->
         <a href="/" class="logo" aria-label="Probus Leiegalm">
             <div class="logo-mark" aria-hidden="true">

@@ -9,7 +9,10 @@
 </script>
 
 <ProceduralBackground />
-<Navbar />
+
+{#if !$page.url.pathname.startsWith("/leden/portaal")}
+    <Navbar />
+{/if}
 
 <main id="main">
     {@render children()}
@@ -21,6 +24,6 @@
 
 <style>
     main {
-        min-height: calc(100vh - 72px);
+        min-height: 100vh;
     }
 </style>
