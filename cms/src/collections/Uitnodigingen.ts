@@ -52,7 +52,7 @@ export const Uitnodigingen: CollectionConfig = {
                     day: 'numeric', month: 'long', year: 'numeric',
                 })
 
-                await fetch('https://api.resend.com/emails', {
+                const res = await fetch('https://api.resend.com/emails', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -76,7 +76,14 @@ export const Uitnodigingen: CollectionConfig = {
                             </div>
                         `,
                     }),
-                }).catch(err => console.error('[uitnodigingen] Email error:', err))
+                }).catch((err: unknown): null => { console.error('[uitnodigingen] Fetch error:', err); return null })
+
+                if (res && !res.ok) {
+                    const body = await res.text().catch(() => '(no body)')
+                    console.error(`[uitnodigingen] Resend HTTP ${res.status}: ${body}`)
+                } else if (res?.ok) {
+                    console.log(`[uitnodigingen] Uitnodiging verstuurd naar ${doc.email}`)
+                }
             },
         ],
     },
