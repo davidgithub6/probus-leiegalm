@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
 # Wrangler / build artifacts
 .wrangler
 .open-next
