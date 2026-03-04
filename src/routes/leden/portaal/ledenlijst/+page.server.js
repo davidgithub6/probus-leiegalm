@@ -1,4 +1,4 @@
-import { fetchCollection } from '$lib/api.js';
+import { fetchCollection, absoluteUrl } from '$lib/api.js';
 
 export async function load({ platform, locals }) {
     const db = platform?.env?.DB;
@@ -17,6 +17,6 @@ export async function load({ platform, locals }) {
 
     return {
         leden: ledenResult.results ?? [],
-        bijlage: page?.bijlage ?? null,
+        bijlage: page?.bijlage ? { ...page.bijlage, url: absoluteUrl(page.bijlage.url) } : null,
     };
 }

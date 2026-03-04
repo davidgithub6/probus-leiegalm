@@ -1,4 +1,4 @@
-import { fetchDocument } from '$lib/api.js';
+import { fetchDocument, absoluteUrl } from '$lib/api.js';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params, locals }) {

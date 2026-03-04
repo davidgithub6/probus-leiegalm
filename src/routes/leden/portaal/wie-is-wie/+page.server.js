@@ -1,4 +1,4 @@
-import { fetchCollection } from '$lib/api.js';
+import { fetchCollection, absoluteUrl } from '$lib/api.js';
 
 export async function load({ locals }) {
     const data = await fetchCollection('wie_is_wie', {
@@ -7,5 +7,10 @@ export async function load({ locals }) {
         depth: '1',
     }, locals.cmsFetch);
 
-    return { personen: data.docs ?? [] };
+    const personen = (data.docs ?? []).map(p => ({
+        ...p,
+        foto: p.foto ? { ...p.foto, url: absoluteUrl(p.foto.url) } : null,
+    }));
+
+    return { personen };
 }

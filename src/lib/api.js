@@ -6,6 +6,19 @@
 const CMS_URL = import.meta.env.VITE_CMS_URL || 'http://localhost:3000';
 
 /**
+ * Turn a possibly-relative media URL into an absolute URL pointing at the CMS.
+ * Payload returns relative paths (e.g. /api/media/file/photo.jpg) when no
+ * serverURL is configured; the browser would resolve these against the frontend
+ * domain instead of the CMS domain.
+ * @param {string|null|undefined} url
+ * @returns {string|null}
+ */
+export function absoluteUrl(url) {
+    if (!url) return null;
+    return url.startsWith('http') ? url : CMS_URL + url;
+}
+
+/**
  * Fetch documents from a Payload collection.
  * @param {string} collection - Collection slug (e.g. 'evenementen')
  * @param {Record<string, string>} [query] - Query parameters (sort, where, limit, etc.)
