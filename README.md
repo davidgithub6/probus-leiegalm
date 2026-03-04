@@ -1,43 +1,48 @@
-# Svelte + Vite
+# Probus Leiegalm Website
 
-This template should help get you started developing with Svelte in Vite.
+Modern, premium rebuild of the Probus Leiegalm Menen-Wevelgem website, featuring a SvelteKit frontend and a Payload CMS backend deployed on Cloudflare.
 
-## Recommended IDE Setup
+## Project Structure
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+- `/` (Root): The SvelteKit frontend application.
+- `/cms`: The Payload CMS application (Next.js).
 
-## Need an official Svelte framework?
+## Frontend (SvelteKit)
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+To develop the frontend locally:
 
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```bash
+npm install
+npm run dev
 ```
+
+## Backend (Payload CMS)
+
+The CMS is configured to run on Cloudflare Workers using D1 for the database and R2 for storage.
+
+To develop the CMS locally:
+
+```bash
+cd cms
+npm install
+npm run dev
+```
+By default, this will run the CMS locally and connect to a local development D1 database via Wrangler.
+
+### Connecting Local CMS to Remote D1 Database
+
+If you need to run the CMS locally but connect to the **remote production Cloudflare D1 database** (for example, to debug data issues or Lexical errors that only appear in production), you can use the `CLOUDFLARE_REMOTE` environment variable we have configured.
+
+**On Windows (PowerShell):**
+```powershell
+$env:CLOUDFLARE_REMOTE="true"; npm run dev
+```
+
+**On Mac/Linux (Bash):**
+```bash
+CLOUDFLARE_REMOTE=true npm run dev
+```
+
+This sets the `remoteBindings: true` flag in the Cloudflare context, instructing Wrangler to connect to the remote D1 database instead of the local SQLite file.
+
+(Note: You also need to authenticate with Wrangler using `npx wrangler login` if you haven't already).

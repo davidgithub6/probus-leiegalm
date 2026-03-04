@@ -13,7 +13,8 @@
 		{
 			"binding": "D1",
 			"database_id": "950b9dc5-b8a9-43ad-be3d-278c3ab95401",
-			"database_name": "probus-cms"
+			"database_name": "probus-cms",
+			"remote": true
 		}
 	],
 	"r2_buckets": [

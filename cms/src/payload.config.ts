@@ -45,8 +45,12 @@ const cloudflareLogger = {
     silent: () => { },
 } as any
 
+const useRemote = process.env.CLOUDFLARE_REMOTE === 'true'
+console.log('[DEBUG] CLOUDFLARE_REMOTE:', process.env.CLOUDFLARE_REMOTE)
+console.log('[DEBUG] useRemote:', useRemote)
+
 const cloudflare =
-    isCLI || !isProduction
+    isCLI || !isProduction || useRemote
         ? await getCloudflareContextFromWrangler()
         : await getCloudflareContext({ async: true })
 
@@ -85,11 +89,12 @@ export default buildConfig({
 
 // Adapted from opennextjs-cloudflare
 function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
+    const useRemote = process.env.CLOUDFLARE_REMOTE === 'true'
     return import(/* webpackIgnore: true */ `${'__wrangler'.replaceAll('_', '')}`).then(
         ({ getPlatformProxy }) =>
             getPlatformProxy({
                 environment: process.env.CLOUDFLARE_ENV,
-                remoteBindings: isProduction,
+                remoteBindings: isProduction || useRemote,
             } satisfies GetPlatformProxyOptions),
     )
 }
