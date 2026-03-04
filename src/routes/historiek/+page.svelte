@@ -111,7 +111,7 @@
     }
 
     .timeline-section {
-        padding: var(--sp-lg) var(--sp-md);
+        padding: var(--sp-lg) 0;
         max-width: 800px;
     }
 
@@ -125,8 +125,8 @@
     .timeline::before {
         content: "";
         position: absolute;
-        left: 96px;
-        top: 28px;
+        left: 152px;
+        top: 12px;
         bottom: 28px;
         width: 1px;
         background: var(--border);
@@ -141,10 +141,8 @@
 
     .tl-marker {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0.5rem;
-        padding-top: 4px;
+        align-items: flex-start;
+        justify-content: flex-end;
         position: relative;
     }
 
@@ -153,6 +151,7 @@
         font-size: 1.1rem;
         color: var(--accent);
         font-weight: 600;
+        line-height: 1.5rem;
     }
 
     .dot {
@@ -163,8 +162,8 @@
         border: 2px solid var(--surface);
         outline: 1px solid var(--border);
         position: absolute;
-        right: -21px;
-        top: 28px;
+        right: -17px;
+        top: 7px;
     }
 
     .tl-item.highlight .dot {
